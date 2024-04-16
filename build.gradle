@@ -1,0 +1,22 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+}
+
+group = 'org.iproute.kotlin.ads'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
