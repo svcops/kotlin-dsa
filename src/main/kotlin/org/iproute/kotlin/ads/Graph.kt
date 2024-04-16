@@ -8,7 +8,26 @@ package org.iproute.kotlin.ads
  * @property weight
  * @constructor Create Edge
  */
-data class Edge(val from: String, val to: String, val weight: Double)
+data class Edge(val from: String, val to: String, val weight: Double) {
+
+    override fun hashCode(): Int {
+        return "$from.$to".hashCode()
+    }
+
+    /**
+     * Equals from 和 to 一样，定义为一条相同的边，忽略权重
+     *
+     * @param other
+     * @return
+     */
+    override fun equals(other: Any?): Boolean {
+        return if (other !is Edge) {
+            false
+        } else {
+            other.from == from && other.to == to
+        }
+    }
+}
 
 
 /**
@@ -63,12 +82,12 @@ interface Graph {
     fun connect(from: String, to: String, weight: Double)
 
     /**
-     * 根据顶点迭代顶点周围的边
+     * 邻边迭代器, 图算法的核心
      *
      * @param v 顶点
      * @return List<Edge>
      */
-    fun adj(v: String): List<Edge>
+    fun adj(v: String): Set<Edge>
 
     /**
      * 从某个点到另外的一个点是否有边
@@ -96,10 +115,17 @@ interface Graph {
 }
 
 
+/**
+ * 稀疏图, 邻接矩阵实现
+ *
+ * @property direct 是否有向
+ * @constructor Create empty Sparse graph
+ */
 open class SparseGraph(private val direct: Boolean) : Graph {
-    private val graph: Map<String, Set<Edge>> = HashMap()
-    private val vertices: Set<String> = HashSet()
-    private val edges: Set<Edge> = HashSet()
+
+    private val graph = mutableMapOf<String, MutableSet<Edge>>()
+    private val vertices = mutableSetOf<String>()
+    private val edges = mutableSetOf<Edge>()
 
     override fun isDirect(): Boolean {
         return this.direct
@@ -123,23 +149,59 @@ open class SparseGraph(private val direct: Boolean) : Graph {
     }
 
     override fun connect(from: String, to: String, weight: Double) {
-        TODO("Not yet implemented")
+        if (from == to) {
+            println("自环边 from == to, 不添加")
+            return
+        }
+
+        this.vertices.add(from)
+        this.vertices.add(to)
+
+        // cover
+        val ft = Edge(from, to, weight)
+        this.graph.getOrPut(from) { mutableSetOf() }
+            .also {
+                it.add(ft)
+                edges.add(ft)
+            }
+
+        if (!direct) {
+            // 无向图的处理
+            val tf = Edge(to, from, weight)
+            this.graph.getOrPut(to) { mutableSetOf() }
+                .also {
+                    it.add(tf)
+                    edges.add(tf)
+                }
+        }
+
     }
 
-    override fun adj(v: String): List<Edge> {
-        TODO("Not yet implemented")
+
+    override fun adj(v: String): Set<Edge> {
+        return graph[v] ?: emptySet()
     }
 
     override fun hasEdge(from: String, to: String): Boolean {
-        TODO("Not yet implemented")
+        val fromEdges = graph[from] ?: return false
+        return fromEdges.any { it.to == to }
     }
 
     override fun getWeight(from: String, to: String): Double? {
-        TODO("Not yet implemented")
+        if (!edges.contains(Edge(from, to, 0.0))) {
+            return null
+        }
+        return edges.find { it.from == from && it.to == to }?.weight
     }
 
     override fun show() {
-        TODO("Not yet implemented")
+        this.graph.forEach { (from, edges) ->
+            print("$from : ")
+            edges.forEach {
+                print("${it.to}(${it.weight}) ")
+            }
+            println()
+        }
     }
 
 }
