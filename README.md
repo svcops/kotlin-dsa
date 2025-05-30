@@ -1,4 +1,4 @@
-# kotlin
+# kotlin dsa
 
 > Data Structures and Algorithms in Kotlin
 
