@@ -1,6 +1,6 @@
 # kotlin
 
-数据结构于算法
+> Data Structures and Algorithms in Kotlin
 
 ## 排序
 
