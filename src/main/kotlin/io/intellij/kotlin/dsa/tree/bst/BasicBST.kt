@@ -24,7 +24,7 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
             return BasicBSTNode(k, v)
         }
 
-        when {
+        return when {
             k < node.getKey() -> {
                 node.setLeft(add(node.getLeft(), k, v))
             }
@@ -34,18 +34,17 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
             }
 
             else -> {
-                // Update value if key already exists
                 node.setValue(v)
             }
         }
 
-        return node
     }
 
     override fun remove(k: K): V? {
         return get(k)?.let { node ->
+            val rtV = node.getValue()
             root = remove(root, k)
-            return node.getValue()
+            rtV
         }
     }
 
@@ -53,7 +52,6 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
         if (node == null) {
             return null
         }
-
         return when {
             k < node.getKey() -> {
                 node.setLeft(remove(node.getLeft(), k))

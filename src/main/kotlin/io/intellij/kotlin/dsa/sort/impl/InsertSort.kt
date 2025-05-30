@@ -22,7 +22,6 @@ class InsertSort<T : Comparable<T>> : Sort<T> {
                 }
             }
         }
-
     }
 
 }

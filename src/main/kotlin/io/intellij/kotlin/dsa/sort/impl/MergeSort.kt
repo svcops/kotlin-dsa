@@ -24,10 +24,9 @@ class MergeSort<T : Comparable<T>> : Sort<T> {
         merge(array, left, mid, right)
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun merge(array: Array<T>, left: Int, mid: Int, right: Int) {
-        // 临时数组
-        val tmp: Array<Comparable<T>> = Array(right - left + 1) { array[left] }
+        val size = right - left + 1
+        val tmp: Array<Comparable<T>> = Array(size) { array[left] }
 
         var x = left
         var y = mid + 1
@@ -51,11 +50,8 @@ class MergeSort<T : Comparable<T>> : Sort<T> {
         while (y <= right) {
             tmp[tmpIndex++] = array[y++]
         }
-
         // 将临时数组中的元素复制回原数组
-        tmp.forEachIndexed { index, element ->
-            array[left + index] = element as T
-        }
+        System.arraycopy(tmp, 0, array, left, size)
     }
 
 }
