@@ -1,22 +1,38 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.kotlin.jvm' version "${kotlin_version}"
 }
 
 group = 'org.iproute.kotlin.ads'
 version = '1.0-SNAPSHOT'
+
+int javaVersion = "${java_version}" as Integer
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+    }
+}
+
+kotlin {
+    jvmToolchain(javaVersion)
+}
 
 repositories {
     maven { url 'https://maven.aliyun.com/repository/public/' }
 }
 
 dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+
+    implementation 'org.apache.commons:commons-collections4:4.4'
+
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'ch.qos.logback:logback-classic:1.5.18'
+    implementation 'ch.qos.logback:logback-core:1.5.18'
+
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 
 test {
     useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(17)
 }
