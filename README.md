@@ -11,3 +11,9 @@
 [归并排序](src/main/kotlin/io/intellij/kotlin/dsa/sort/impl/MergeSort.kt)
 
 [快速排序](src/main/kotlin/io/intellij/kotlin/dsa/sort/impl/QuickSort.kt)
+
+## 查找
+
+### 二分搜索树
+
+[基础二分搜索树](src/main/kotlin/io/intellij/kotlin/dsa/tree/bst/BasicBST.kt)

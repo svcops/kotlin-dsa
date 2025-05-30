@@ -38,8 +38,8 @@ class SortTest {
     private fun test(sort: Sort<Int>) {
         val result = sortArr(sort, createRandomArray(100000, 100000))
         println(result)
-        Assertions.assertTrue(result.same)
         Assertions.assertTrue(result.sorted)
+        Assertions.assertTrue(result.same)
     }
 
 }

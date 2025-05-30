@@ -2,18 +2,11 @@ package io.intellij.kotlin.dsa.sort
 
 import org.apache.commons.lang3.time.StopWatch
 
-/**
- * SortHelper
- *
- * @author tech@intellij.io
- * @since 2025-05-30
- */
-
-fun createRandomArray(size: Int, range: Int): Array<Int> {
+internal fun createRandomArray(size: Int, range: Int): Array<Int> {
     return Array(size) { (0..range).random() }
 }
 
-fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
+internal fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
     if (array1.size != array2.size) return false
     for (i in array1.indices) {
         if (array1[i] != array2[i]) return false
@@ -21,7 +14,7 @@ fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
     return true
 }
 
-fun <T : Comparable<T>> sorted(array: Array<T>): Boolean {
+internal fun <T : Comparable<T>> sorted(array: Array<T>): Boolean {
     for (i in 0 until array.size - 1) {
         if (array[i] > array[i + 1]) {
             return false
@@ -49,6 +42,11 @@ fun <T : Comparable<T>> sortArr(sort: Sort<T>, array: Array<T>): SortResult {
 
 data class SortResult(val type: Class<*>, val costTime: Long, val same: Boolean, val sorted: Boolean) {
     override fun toString(): String {
-        return "SortResult(type=${type.name}, costTime=$costTime ms, isSorted=$sorted)"
+        return """
+            Sort Method  : ${type.name}
+            Cost Time(ms): $costTime
+            Sorted       : $sorted
+            Same         : $same
+        """.trimIndent()
     }
 }
