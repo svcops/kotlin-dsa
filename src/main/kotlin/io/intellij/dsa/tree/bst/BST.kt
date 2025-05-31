@@ -1,7 +1,5 @@
 package io.intellij.dsa.tree.bst
 
-const val DEFAULT_HEIGHT = 1
-
 interface BST<K : Comparable<K>, V> {
 
     /**
@@ -142,32 +140,5 @@ interface BST<K : Comparable<K>, V> {
      */
     fun bfs(action: (BSTNode<K, V>) -> Unit) {
         bfs(getRoot(), action)
-    }
-}
-
-interface BSTNode<K : Comparable<K>, V> {
-
-    fun getHeight(): Int
-
-    fun setHeight(height: Int): BSTNode<K, V>
-
-    fun getKey(): K
-
-    fun setKey(key: K): BSTNode<K, V>
-
-    fun getValue(): V
-
-    fun setValue(value: V): BSTNode<K, V>
-
-    fun getLeft(): BSTNode<K, V>?
-
-    fun setLeft(left: BSTNode<K, V>?): BSTNode<K, V>
-
-    fun getRight(): BSTNode<K, V>?
-
-    fun setRight(right: BSTNode<K, V>?): BSTNode<K, V>
-
-    fun isLeaf(): Boolean {
-        return this.getLeft() == null && this.getRight() == null
     }
 }

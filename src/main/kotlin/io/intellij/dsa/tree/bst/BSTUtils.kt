@@ -1,5 +1,7 @@
 package io.intellij.dsa.tree.bst
 
+const val DEFAULT_HEIGHT = 1
+
 internal fun <K : Comparable<K>, V> isBST(node: BSTNode<K, V>?): Boolean {
     return isBSTHelper(node, null, null)
 }
