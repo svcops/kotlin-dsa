@@ -143,7 +143,6 @@ class SparseGraph : Graph {
         }
     }
 
-
     override fun vertexIndex(): VertexIndex = this.vertexIndex
 
 }

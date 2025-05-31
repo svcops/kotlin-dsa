@@ -135,9 +135,7 @@ class DenseGraph : Graph {
 
         // 先打印顶点信息
         println("Vertex Information:")
-        vertexIndex.getVertexes().forEach { vertex ->
-            println("ID: ${vertex.id}, Name: ${vertex.name}")
-        }
+        vertexIndex.getVertexes().forEach(::println)
 
         // 打印 matrix 并在第一行和第一列显示顶点信息
         println("\nAdjacency Matrix:")
@@ -151,22 +149,16 @@ class DenseGraph : Graph {
         println()
 
         // 打印矩阵内容
-        val width = 5
         for (i in 0 until vertexIndex.size()) {
             val v = vertexIndex.getVertex(i)!!
-            print(beautify("${v.id}:${v.name}", width))
+            print(beautify("${v.id}:${v.name}", 5))
 
             for (j in 0 until vertexIndex.size()) {
-                val element = if (i < adjacencyMatrix.size && j < adjacencyMatrix[i].size) {
-                    adjacencyMatrix[i][j]
-                } else {
-                    null
-                }
-
+                val element = adjacencyMatrix[i][j]
                 if (element != null) {
-                    print(beautify(element.toString(), width))
+                    print(beautify(element.toString(), 5))
                 } else {
-                    print(beautify("nil", width))
+                    print(beautify("nil", 5))
                 }
             }
             println()

@@ -15,7 +15,7 @@ fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean, type: Gr
     return graph.apply {
         graphText.textToLines().forEach { line ->
             line.lineToEdge("\\s+")?.let {
-                val weight = it.weight ?: DEFAULT_UNWEIGHTED_VALUE
+                val weight = it.weight
                 this.connect(from = it.from.name, to = it.to.name, weight = weight)
             }
         }

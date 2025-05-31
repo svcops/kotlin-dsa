@@ -39,7 +39,7 @@ class Dijkstra(graph: Graph) : GraphCompute(graph) {
             filter.map { name -> checkVertex(name, false) }
                 .map { it.name }
                 .filter { it != sourceV.name }
-                .toSet()
+                .toMutableSet()
                 .takeIf { it.isNotEmpty() }
         }
 
@@ -81,20 +81,19 @@ class Dijkstra(graph: Graph) : GraphCompute(graph) {
         min: TotalWeight,
         minHeap: PriorityQueue<TotalWeight>,
         record: Result,
-        brokenFilter: Set<String>?
+        brokenFilter: MutableSet<String>?
     ): Boolean {
         val completed = record.calculateCompleted
         val dts = record.dynamicDistanceToSource
         val pathFrom = record.dynamicPathFrom
 
-        val toV = min.edge.to
-        if (completed[toV.id]) {
+        val pivotVertex = min.edge.to
+        if (completed[pivotVertex.id]) {
             return true
         }
 
-        val toW = dts[toV.id] ?: return true
-        val updatedEdges = graph.adjacentEdges(toV.id)
-
+        val toW = dts[pivotVertex.id]!!
+        val updatedEdges = graph.adjacentEdges(pivotVertex.id)
 
         updatedEdges.forEach { updatedEdge ->
             val toto = updatedEdge.to
@@ -120,8 +119,8 @@ class Dijkstra(graph: Graph) : GraphCompute(graph) {
             }
         }
 
-        completed[toV.id] = true
-        return !canBeBroken(brokenFilter?.toMutableSet(), toV.name)
+        completed[pivotVertex.id] = true
+        return !canBeBroken(brokenFilter, pivotVertex.name)
     }
 
     /**
@@ -243,7 +242,6 @@ class Dijkstra(graph: Graph) : GraphCompute(graph) {
          */
         fun printAllPaths() {
             println("=== Dijkstra Shortest Paths from [${source.name}] ===")
-
             graph.getVertexes()
                 .filter { it.name != source.name }
                 .forEach { vertex ->

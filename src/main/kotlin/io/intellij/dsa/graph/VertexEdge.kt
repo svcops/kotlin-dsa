@@ -8,7 +8,11 @@ import java.util.*
  * @author tech@intellij.io
  * @since 2025-05-29
  */
-data class Vertex(val name: String, val id: Int)
+data class Vertex(val name: String, val id: Int) {
+    override fun toString(): String {
+        return "Vertex(id=$id, name='$name')"
+    }
+}
 
 data class Edge(val from: Vertex, val to: Vertex, var weight: Double = 1.0) {
     override fun toString(): String {

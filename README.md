@@ -68,8 +68,11 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
   - 深度优先遍历 `dfs`
   - 广度优先遍历 `bfs`
 - [无向图联通分量](src/main/kotlin/io/intellij/dsa/graph/compute/Components.kt)
+- [有向无环拓扑排序](src/main/kotlin/io/intellij/dsa/graph/compute/TopoSort.kt)
+  - `Kahn` 算法：筛选入度为0的顶点 + 队列 + BFS
 - [最小生成树](src/main/kotlin/io/intellij/dsa/graph/compute/Mst.kt)
   - `LazyPrim`算法：深度优先遍历 + 切分
   - `Kruskal`算法：最小堆 + 并查集 + 切分
 - [单源最短路径](src/main/kotlin/io/intellij/dsa/graph/compute/Dijkstra.kt)
   - 思路：局部最优更新到全局最优
+- [环分析](src/main/kotlin/io/intellij/dsa/graph/compute/CycleAnalyzer.kt)

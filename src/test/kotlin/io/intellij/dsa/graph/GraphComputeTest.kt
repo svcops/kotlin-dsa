@@ -1,8 +1,10 @@
 package io.intellij.dsa.graph
 
 import io.intellij.dsa.graph.compute.Components
+import io.intellij.dsa.graph.compute.CycleAnalyzer
 import io.intellij.dsa.graph.compute.Dijkstra
 import io.intellij.dsa.graph.compute.Mst
+import io.intellij.dsa.graph.compute.TopoSort
 import io.intellij.dsa.graph.compute.Traverse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -91,6 +93,31 @@ class GraphComputeTest {
     }
 
     @Test
+    fun `test topo sort kahn`() {
+        TopoSort(
+            buildGraph(
+                """
+                        0 1 1
+                        0 5 1
+                        0 6 1
+                        2 0 1
+                        2 3 1
+                        3 5 1
+                        5 4 1
+                        6 4 1
+                        7 6 1
+                        8 7 1
+                        6 9 1
+                        9 10 1
+                        9 11 1
+                        9 12 1
+                        11 12 1
+        """.trimIndent(), directed = true, weighted = false
+            )
+        ).kahn().printTopoSort()
+    }
+
+    @Test
     fun `test graph dijkstra`() {
         val graph = """
             A B 3
@@ -113,6 +140,46 @@ class GraphComputeTest {
             result.printRoutes(route)
         }
 
+    }
+
+
+    @Test
+    fun `test graph cycle analyzer shared point`() {
+        val analysis = CycleAnalyzer(
+            buildGraph(
+                """
+            A B 1
+            B C 1
+            C A 1
+            C D 1
+            D E 1
+            E C 1
+            """.trimIndent(), directed = true, weighted = true
+            )
+        ).findCycles()
+
+        analysis.printCycles()
+
+        Assertions.assertEquals(2, analysis.cycles.size)
+    }
+
+    @Test
+    fun `test graph cycle analyzer shared edge`() {
+        val analysis = CycleAnalyzer(
+            buildGraph(
+                """
+            A B 1
+            B C 1
+            C D 1
+            D A 1
+            B D 1
+            """.trimIndent(), directed = true, weighted = true
+            )
+        ).findCycles()
+
+        analysis.printCycles()
+
+        Assertions.assertEquals(2, analysis.cycles.size)
     }
 
 }
