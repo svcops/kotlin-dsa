@@ -141,7 +141,7 @@ class HeapImpl<T> : Heap<T> {
 
     @Suppress("UNCHECKED_CAST")
     private fun siftDown(index: Int) {
-        var curIndex = index;
+        var curIndex = index
         var left = 2 * index + 1
         var right = 2 * index + 2
 

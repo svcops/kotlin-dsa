@@ -44,7 +44,6 @@ class GraphComputeTest {
         ).bfs()
     }
 
-
     @Test
     fun `test graph components`() {
         val result = Components(
@@ -60,12 +59,11 @@ class GraphComputeTest {
             )
         ).compute()
 
-        println("Component Count: ${result.getComponentCount()}")
+        println("Component Count: ${result.componentCount}")
 
         Assertions.assertTrue(result.hasPath("A", "C"))
         Assertions.assertFalse(result.hasPath("A", "G"))
     }
-
 
     val mstGraphText = """
             0 1 4
@@ -94,7 +92,7 @@ class GraphComputeTest {
 
     @Test
     fun `test topo sort kahn`() {
-        TopoSort(
+        val sort = TopoSort(
             buildGraph(
                 """
                         0 1 1
@@ -114,7 +112,10 @@ class GraphComputeTest {
                         11 12 1
         """.trimIndent(), directed = true, weighted = false
             )
-        ).kahn().printTopoSort()
+        ).kahn()
+
+        sort.printTopoSort()
+
     }
 
     @Test

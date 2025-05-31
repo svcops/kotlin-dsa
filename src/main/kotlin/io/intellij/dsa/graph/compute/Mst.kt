@@ -18,7 +18,7 @@ class Mst(graph: Graph) : GraphCompute(graph) {
 
     init {
         checkEmpty().checkDirected(false).checkWeighted(true)
-        if (Components(graph).compute().getComponentCount() > 1) {
+        if (Components(graph).compute().componentCount > 1) {
             throw IllegalArgumentException("Graph is not connected, cannot compute MST")
         }
     }

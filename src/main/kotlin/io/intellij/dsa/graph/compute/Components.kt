@@ -51,15 +51,13 @@ class Components(graph: Graph) : GraphCompute(graph) {
     }
 
     class Result(private val graph: Graph) {
+        private var _count = 0
+        val componentCount: Int get() = _count
+        internal val uf: UnionFind<Vertex> = IndexedUnionFind(Vertex::id)
 
-        private var componentCount: Int = 0
-        val uf: UnionFind<Vertex> = IndexedUnionFind(Vertex::id)
-
-        fun setComponentCount(count: Int) {
-            this.componentCount = count
+        internal fun setComponentCount(count: Int) {
+            this._count = count
         }
-
-        fun getComponentCount(): Int = this.componentCount
 
         fun hasPath(src: String, dest: String): Boolean {
             val srcV = graph.vertexIndex().getVertex(src)

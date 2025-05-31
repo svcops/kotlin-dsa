@@ -23,9 +23,10 @@ fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean, type: Gr
 }
 
 fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean): Graph {
+    val type = if (Math.random() < 0.5) GraphType.DENSE else GraphType.SPARSE
+    println("build graph with type: $type")
     return buildGraph(
-        graphText, directed, weighted,
-        type = if (Math.random() < 0.5) GraphType.DENSE else GraphType.SPARSE
+        graphText, directed, weighted, type
     )
 }
 

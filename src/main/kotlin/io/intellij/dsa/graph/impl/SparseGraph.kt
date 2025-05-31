@@ -24,7 +24,7 @@ class SparseGraph : Graph {
 
     private val vertexIndex = VertexIndex()
 
-    private val adjacencyList: TreeMap<Int, TreeMap<Int, Double>> = TreeMap()
+    private var adjacencyList: Array<TreeMap<Int, Double>> = Array(0) { TreeMap() }
     private var edgesCount: Int = 0
 
     constructor(directed: Boolean, weighted: Boolean) {
@@ -39,18 +39,16 @@ class SparseGraph : Graph {
     override fun getEdgeNum(): Int = this.edgesCount
 
     override fun getEdges(): List<Edge> {
-        return if (isEmpty()) {
-            emptyList()
-        } else {
-            val edges = mutableListOf<Edge>()
-            for ((fromId, neighbors) in adjacencyList) {
-                val fromVertex = vertexIndex.getVertex(fromId) ?: continue
-                for ((toId, weight) in neighbors) {
-                    val toVertex = vertexIndex.getVertex(toId) ?: continue
-                    edges.add(Edge(from = fromVertex, to = toVertex, weight = weight))
+        return adjacencyList.flatMapIndexed { from, edges ->
+            if (edges.isEmpty()) {
+                emptyList() // 返回空列表而不是 null
+            } else {
+                val fromV = vertexIndex.getVertex(from)!!
+                edges.map { (toId, weight) ->
+                    val toV = vertexIndex.getVertex(toId)!!
+                    Edge(from = fromV, to = toV, weight = weight)
                 }
             }
-            edges
         }
     }
 
@@ -61,7 +59,7 @@ class SparseGraph : Graph {
         if (from == to) {
             return null
         }
-        return adjacencyList[from]?.let {
+        return adjacencyList[from].let {
             it[to]?.let { weight ->
                 val fromVertex = vertexIndex.getVertex(from)!!
                 val toVertex = vertexIndex.getVertex(to)!!
@@ -86,7 +84,9 @@ class SparseGraph : Graph {
     }
 
     private fun connect(from: Int, to: Int, weight: Double, directed: Boolean) {
-        val edges = adjacencyList.getOrPut(from) { TreeMap() }
+        this.expand(maxOf(from, to) + 1)
+
+        val edges = adjacencyList[from]
         val isNewEdge = !edges.containsKey(to)
 
         if (!isNewEdge) {
@@ -102,22 +102,30 @@ class SparseGraph : Graph {
 
     }
 
+    private fun expand(size: Int) {
+        if (size > adjacencyList.size) {
+            val newAdjList = Array(size) { TreeMap<Int, Double>() }
+            System.arraycopy(adjacencyList, 0, newAdjList, 0, adjacencyList.size)
+            this.adjacencyList = newAdjList
+        }
+    }
+
     override fun adjacentEdges(id: Int): List<Edge> {
         if (id < 0 || id >= vertexIndex.size()) {
             return emptyList()
         }
+        val fromVertex = vertexIndex.getVertex(id)!!
         val neighbors = adjacencyList[id]
-        return if (neighbors == null) {
-            emptyList()
-        } else {
-            vertexIndex.getVertex(id)!!.let { fromVertex ->
-                neighbors.mapNotNull { (toId, weight) ->
-                    vertexIndex.getVertex(toId)?.let { toVertex ->
-                        Edge(from = fromVertex, to = toVertex, weight = weight)
-                    }
-                }
-            }
-        }
+        return neighbors.map { (toId, weight) ->
+            val toVertex = vertexIndex.getVertex(toId) ?: return@map null
+            Edge(from = fromVertex, to = toVertex, weight = weight)
+        }.filterNotNull()
+    }
+
+    override fun clear() {
+        vertexIndex.clear()
+        adjacencyList = Array(0) { TreeMap() }
+        edgesCount = 0
     }
 
     override fun showGraph() {
@@ -126,23 +134,27 @@ class SparseGraph : Graph {
         println("Edges: $edgesCount")
 
         // 打印邻接表
-        println("Adjacency List:")
+        println("\nAdjacency List:")
         val startFmt = "%s(%d) : "
         val toFmt = "%s(%d) -- %.2f -> %s(%d)   "
 
-        for (fromId in 0 until adjacencyList.size) {
-            val fromV = vertexIndex.getVertex(fromId)!!
-            print(startFmt.format(fromV.name, fromId))
-
-            adjacencyList[fromId]?.forEach { (toId, weight) ->
-                val toV = vertexIndex.getVertex(toId) ?: return@forEach
-                print(toFmt.format(fromV.name, fromId, weight, toV.name, toId))
+        adjacencyList.forEachIndexed { from, map ->
+            if (map.isEmpty()) {
+                return@forEachIndexed
             }
-
+            val fromV = vertexIndex.getVertex(from)!!
+            print(startFmt.format(fromV.name, fromV.id))
+            map.forEach { (toId, weight) ->
+                val toV = vertexIndex.getVertex(toId)!!
+                print(toFmt.format(fromV.name, fromV.id, weight, toV.name, toId))
+            }
             println()
         }
+
     }
 
     override fun vertexIndex(): VertexIndex = this.vertexIndex
+
+    override fun getAdjacencyList(): Array<TreeMap<Int, Double>> = this.adjacencyList
 
 }

@@ -1,5 +1,7 @@
 package io.intellij.dsa.graph
 
+import java.util.*
+
 const val DEFAULT_UNWEIGHTED_VALUE = 1.0
 
 /**
@@ -112,7 +114,54 @@ interface Graph {
      */
     fun adjacentEdges(id: Int): List<Edge>
 
+
+    /**
+     * Clears all data from the graph, including all vertices and edges.
+     *
+     * This method completely resets the graph to an empty state,
+     * removing all connections and state information associated
+     * with the graph.
+     *
+     * After calling this method, the graph will be empty, and any
+     * operations dependent on existing vertices or edges will behave
+     * as though the graph is newly initialized.
+     */
+    fun clear()
+
+    /**
+     * Displays the graph in a visual format.
+     */
     fun showGraph()
 
+    /**
+     * Retrieves the VertexIndex associated with this graph.
+     *
+     * @return the VertexIndex instance used to maintain the mapping between vertex names and their corresponding indices
+     */
     fun vertexIndex(): VertexIndex
+
+    /**
+     * Retrieves the adjacency matrix of the graph.
+     *
+     * The adjacency matrix is a 2D array where the rows and columns represent the vertices of the graph.
+     * Each element represents the weight of the edge between the corresponding vertices.
+     * If there is no edge between two vertices, a null value is used.
+     *
+     * @return a 2D array of nullable Doubles representing the adjacency matrix if the graph is non-empty,
+     *         or null if the graph is empty
+     */
+    fun getAdjacencyMatrix(): Array<Array<Double?>>? = null
+
+    /**
+     * Retrieves the adjacency list representation of the graph.
+     *
+     * The adjacency list is an array where each element corresponds
+     * to a vertex in the graph. Each element is a TreeMap that maps
+     * the ID of an adjacent vertex to the weight of the edge connecting them.
+     *
+     * @return an array of TreeMap objects representing the adjacency list of the graph if it is non-empty,
+     *         or null if the graph is empty.
+     */
+    fun getAdjacencyList(): Array<TreeMap<Int, Double>>? = null
+
 }

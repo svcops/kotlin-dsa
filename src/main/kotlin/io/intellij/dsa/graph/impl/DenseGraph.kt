@@ -128,6 +128,12 @@ class DenseGraph : Graph {
         }
     }
 
+    override fun clear() {
+        vertexIndex.clear()
+        edgesCount = 0
+        adjacencyMatrix = Array(2) { Array(2) { null } }
+    }
+
     override fun showGraph() {
         println("Graph: ${if (directed) "Directed" else "Undirected"}, ${if (weighted) "Weighted" else "Unweighted"}")
         println("Vertices: ${vertexIndex.size()}")
@@ -166,4 +172,7 @@ class DenseGraph : Graph {
     }
 
     override fun vertexIndex(): VertexIndex = this.vertexIndex
+
+    override fun getAdjacencyMatrix(): Array<Array<Double?>>? = this.adjacencyMatrix
+
 }

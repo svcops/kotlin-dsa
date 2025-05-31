@@ -53,4 +53,9 @@ class VertexIndex {
         }
     }
 
+    fun clear() {
+        vertexes.clear()
+        namedVertexes.clear()
+    }
+
 }
