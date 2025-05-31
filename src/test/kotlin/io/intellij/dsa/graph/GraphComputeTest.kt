@@ -1,6 +1,7 @@
 package io.intellij.dsa.graph
 
 import io.intellij.dsa.graph.compute.Components
+import io.intellij.dsa.graph.compute.Dijkstra
 import io.intellij.dsa.graph.compute.Mst
 import io.intellij.dsa.graph.compute.Traverse
 import org.junit.jupiter.api.Assertions
@@ -87,6 +88,31 @@ class GraphComputeTest {
     fun `test graph mst kruskal`() {
         Mst(buildGraph(mstGraphText, directed = false, weighted = true))
             .kruskal().printMst()
+    }
+
+    @Test
+    fun `test graph dijkstra`() {
+        val graph = """
+            A B 3
+            A C 1
+            B D 3
+            C B 1
+            C D 5
+            C E 2
+            D F 2
+            E F 1
+            B F 8
+            """.trimIndent()
+
+        val result = Dijkstra(buildGraph(graph, directed = true, weighted = true))
+            .compute("A", null)
+
+        listOf("B", "C", "D", "E", "F").map { v ->
+            result.getRoutes(v)
+        }.forEach { route ->
+            result.printRoutes(route)
+        }
+
     }
 
 }

@@ -20,7 +20,7 @@ class Components(graph: Graph) : GraphCompute(graph) {
 
     fun compute(): Result {
         val result = Result(graph)
-        val visited = BooleanArray(graph.getVertexIndex().size())
+        val visited = BooleanArray(graph.vertexIndex().size())
         var count: Int
 
         graph.getVertexes().apply {
@@ -62,8 +62,8 @@ class Components(graph: Graph) : GraphCompute(graph) {
         fun getComponentCount(): Int = this.componentCount
 
         fun hasPath(src: String, dest: String): Boolean {
-            val srcV = graph.getVertexIndex().getVertex(src)
-            val destV = graph.getVertexIndex().getVertex(dest)
+            val srcV = graph.vertexIndex().getVertex(src)
+            val destV = graph.vertexIndex().getVertex(dest)
             if (srcV == null || destV == null) return false
             return uf.isConnected(srcV, destV)
         }

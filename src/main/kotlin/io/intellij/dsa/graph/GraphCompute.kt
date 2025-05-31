@@ -34,4 +34,12 @@ abstract class GraphCompute {
         return this
     }
 
+    fun checkVertex(name: String, required: Boolean): Vertex {
+        return graph.vertexIndex().getVertex(name) ?: if (required) {
+            throw IllegalArgumentException("Vertex '$name' not found")
+        } else {
+            throw NoSuchElementException("Vertex '$name' not found")
+        }
+    }
+
 }

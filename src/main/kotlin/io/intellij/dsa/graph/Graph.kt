@@ -11,7 +11,7 @@ const val DEFAULT_UNWEIGHTED_VALUE = 1.0
 interface Graph {
 
     fun isEmpty(): Boolean {
-        return getVertexNum() == 0
+        return getVertexesNum() == 0
     }
 
     /**
@@ -33,7 +33,7 @@ interface Graph {
      *
      * @return the total count of vertices in the graph
      */
-    fun getVertexNum(): Int = getVertexIndex().size()
+    fun getVertexesNum(): Int = vertexIndex().size()
 
     /**
      * Retrieves the total number of edges in the graph.
@@ -47,7 +47,7 @@ interface Graph {
      *
      * @return a list of Vertex objects representing all vertices in the graph
      */
-    fun getVertexes(): List<Vertex> = getVertexIndex().getVertexes()
+    fun getVertexes(): List<Vertex> = vertexIndex().getVertexes()
 
     /**
      * Retrieves a list of all edges in the graph.
@@ -64,8 +64,8 @@ interface Graph {
      * @return the Edge connecting the specified vertices, or null if no such edge exists or if either vertex is not found
      */
     fun getEdge(from: String, to: String): Edge? {
-        val fromV = getVertexIndex().getVertex(from)
-        val toV = getVertexIndex().getVertex(to)
+        val fromV = vertexIndex().getVertex(from)
+        val toV = vertexIndex().getVertex(to)
         if (fromV == null || toV == null) {
             return null
         }
@@ -99,7 +99,7 @@ interface Graph {
     fun connect(from: String, to: String, weight: Double)
 
     fun adjacentEdges(name: String): List<Edge> {
-        return getVertexIndex().getVertex(name)?.let { vertex ->
+        return vertexIndex().getVertex(name)?.let { vertex ->
             adjacentEdges(vertex.id)
         } ?: emptyList()
     }
@@ -114,5 +114,5 @@ interface Graph {
 
     fun showGraph()
 
-    fun getVertexIndex(): VertexIndex
+    fun vertexIndex(): VertexIndex
 }

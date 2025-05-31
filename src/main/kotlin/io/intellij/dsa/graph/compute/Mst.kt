@@ -28,9 +28,9 @@ class Mst(graph: Graph) : GraphCompute(graph) {
      */
     fun lazyPrim(): Result {
         val result = Result()
-        val visited = BooleanArray(graph.getVertexNum())
+        val visited = BooleanArray(graph.getVertexesNum())
 
-        val start = graph.getVertexIndex().getVertex(0)!!
+        val start = graph.vertexIndex().getVertex(0)!!
         val minHeap = PriorityQueue<Edge>(compareBy { it.weight })
 
         lazyPrim(start, visited, minHeap, result)
