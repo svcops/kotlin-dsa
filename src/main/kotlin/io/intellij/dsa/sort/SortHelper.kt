@@ -6,7 +6,7 @@ fun createRandomArray(size: Int, range: Int): Array<Int> {
     return Array(size) { (0..range).random() }
 }
 
-internal fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
+private fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
     if (array1.size != array2.size) return false
     for (i in array1.indices) {
         if (array1[i] != array2[i]) return false
@@ -14,7 +14,7 @@ internal fun sameArray(array1: Array<*>, array2: Array<*>): Boolean {
     return true
 }
 
-internal fun <T : Comparable<T>> sorted(array: Array<T>): Boolean {
+private fun <T : Comparable<T>> sorted(array: Array<T>): Boolean {
     for (i in 0 until array.size - 1) {
         if (array[i] > array[i + 1]) {
             return false

@@ -12,6 +12,12 @@
 
 ## 查找
 
+### 并查集
+
+[并查集的定义](src/main/kotlin/io/intellij/dsa/uf/UnionFind.kt)
+
+- [基于索引的并查集](src/main/kotlin/io/intellij/dsa/uf/IndexedUnionFind.kt)
+
 ### 堆
 
 [堆的定义](src/main/kotlin/io/intellij/dsa/tree/heap/Heap.kt)
@@ -28,12 +34,6 @@ private fun heapify() {
     }
 }
 ```
-
-### 并查集
-
-[并查集的定义](src/main/kotlin/io/intellij/dsa/uf/UnionFind.kt)
-
-- [基于索引的并查集](src/main/kotlin/io/intellij/dsa/uf/IndexedUnionFind.kt)
 
 ### 二分搜索树
 
@@ -55,13 +55,17 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 
 ## 图
 
-[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt) [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
+*
+
+*[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt) [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
+**
 
 - [稠密图 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
 - [稀疏图 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)
 
-[图中的算法](src/main/kotlin/io/intellij/dsa/graph/compute)
+**[图中的算法](src/main/kotlin/io/intellij/dsa/graph/compute)**
 
 - [图的遍历](src/main/kotlin/io/intellij/dsa/graph/compute/Traverse.kt)
   - 深度优先遍历 `dfs`
   - 广度优先遍历 `bfs`
+- [无向图联通分量](src/main/kotlin/io/intellij/dsa/graph/compute/Components.kt)

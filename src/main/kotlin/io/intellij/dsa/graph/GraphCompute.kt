@@ -13,7 +13,7 @@ abstract class GraphCompute {
         this.graph = graph
     }
 
-    fun checkGraph(): GraphCompute {
+    fun checkEmpty(): GraphCompute {
         if (graph.isEmpty()) {
             throw IllegalArgumentException("Graph is empty")
         }

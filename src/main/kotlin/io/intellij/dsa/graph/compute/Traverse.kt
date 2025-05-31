@@ -4,7 +4,8 @@ import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
 import io.intellij.dsa.graph.GraphCompute
 import io.intellij.dsa.graph.Vertex
-import java.util.*
+import java.util.TreeSet
+import kotlin.collections.ArrayDeque
 
 /**
  * Traverse
@@ -19,7 +20,7 @@ class Traverse(
 ) : GraphCompute(graph) {
 
     init {
-        checkGraph()
+        checkEmpty()
     }
 
     fun dfs() {
@@ -32,7 +33,7 @@ class Traverse(
     }
 
     // 深度优先遍历
-    fun dfs(vertex: Vertex, vc: (Vertex) -> Unit, ec: (Edge) -> Unit, visited: TreeSet<Int>) {
+    private fun dfs(vertex: Vertex, vc: (Vertex) -> Unit, ec: (Edge) -> Unit, visited: TreeSet<Int>) {
         visited.add(vertex.id)
         vc.invoke(vertex)
         this.graph.adjacentEdges(vertex.id).forEach {
@@ -53,7 +54,7 @@ class Traverse(
         }
     }
 
-    fun bfs(vertex: Vertex, vc: (Vertex) -> Unit, ec: (Edge) -> Unit, visited: TreeSet<Int>) {
+    private fun bfs(vertex: Vertex, vc: (Vertex) -> Unit, ec: (Edge) -> Unit, visited: TreeSet<Int>) {
         val queue = ArrayDeque<Vertex>().apply {
             add(vertex)
         }
