@@ -79,8 +79,8 @@ internal fun <K : Comparable<K>, V> bfs(node: BSTNode<K, V>?, action: (BSTNode<K
         val current = queue.removeFirst()
         action(current)
 
-        current.getLeft()?.let { queue.add(it) }
-        current.getRight()?.let { queue.add(it) }
+        current.getLeft()?.let { queue.addLast(it) }
+        current.getRight()?.let { queue.addLast(it) }
     }
 }
 

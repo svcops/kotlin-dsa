@@ -7,19 +7,26 @@ enum class GraphType {
     DENSE, SPARSE
 }
 
-fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean, graphType: GraphType): Graph {
-    val graph = when (graphType) {
+fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean, type: GraphType): Graph {
+    val graph = when (type) {
         GraphType.DENSE -> DenseGraph(directed, weighted)
         GraphType.SPARSE -> SparseGraph(directed, weighted)
     }
-
-    graphText.textToLines().forEach { line ->
-        line.lineToEdge("\\s+")?.let {
-            val weight = it.weight ?: DEFAULT_UNWEIGHTED_VALUE
-            graph.connect(from = it.from.name, to = it.to.name, weight = weight)
+    return graph.apply {
+        graphText.textToLines().forEach { line ->
+            line.lineToEdge("\\s+")?.let {
+                val weight = it.weight ?: DEFAULT_UNWEIGHTED_VALUE
+                this.connect(from = it.from.name, to = it.to.name, weight = weight)
+            }
         }
     }
-    return graph
+}
+
+fun buildGraph(graphText: String, directed: Boolean, weighted: Boolean): Graph {
+    return buildGraph(
+        graphText, directed, weighted,
+        type = if (Math.random() < 0.5) GraphType.DENSE else GraphType.SPARSE
+    )
 }
 
 internal fun String.textToLines(): List<String> {

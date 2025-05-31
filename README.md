@@ -59,3 +59,9 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 
 - [稠密图 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
 - [稀疏图 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)
+
+[图中的算法](src/main/kotlin/io/intellij/dsa/graph/compute)
+
+- [图的遍历](src/main/kotlin/io/intellij/dsa/graph/compute/Traverse.kt)
+  - 深度优先遍历 `dfs`
+  - 广度优先遍历 `bfs`
