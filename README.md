@@ -29,6 +29,12 @@ private fun heapify() {
 }
 ```
 
+### 并查集
+
+[并查集的定义](src/main/kotlin/io/intellij/dsa/uf/UnionFind.kt)
+
+- [基于索引的并查集](src/main/kotlin/io/intellij/dsa/uf/IndexedUnionFind.kt)
+
 ### 二分搜索树
 
 [二分搜索树的定义](src/main/kotlin/io/intellij/dsa/tree/bst/BST.kt)
