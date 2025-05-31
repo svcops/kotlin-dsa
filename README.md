@@ -22,7 +22,7 @@
 
 ```kotlin
 private fun heapify() {
-    // 从最后一个非叶子节点开始向上调整
+    // 从最后一个非叶子节点开始向下调整
     for (i in (count / 2 - 1) downTo 0) {
         siftDown(i)
     }
