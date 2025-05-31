@@ -1,7 +1,7 @@
 package io.intellij.dsa.sort.impl
 
 import io.intellij.dsa.sort.Sort
-import io.intellij.dsa.swap
+import io.intellij.dsa.sort.swap
 
 /**
  * BubbleSort 冒泡排序
@@ -11,13 +11,13 @@ import io.intellij.dsa.swap
  */
 class BubbleSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(array: Array<T>) {
-        if (array.isEmpty() || array.size == 1) return
-        val n = array.size
+    override fun sort(arr: Array<T>) {
+        if (arr.isEmpty() || arr.size == 1) return
+        val n = arr.size
         for (i in 0 until n) {
             for (j in i + 1 until n) {
-                if (array[j] < array[i]) {
-                    swap(array, i, j)
+                if (arr[j] < arr[i]) {
+                    arr.swap(i, j)
                 }
             }
         }

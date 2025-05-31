@@ -1,7 +1,7 @@
 package io.intellij.dsa.sort.impl
 
 import io.intellij.dsa.sort.Sort
-import io.intellij.dsa.swap
+import io.intellij.dsa.sort.swap
 
 /**
  * QuickSort
@@ -11,9 +11,9 @@ import io.intellij.dsa.swap
  */
 class QuickSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(array: Array<T>) {
-        if (array.isEmpty() || array.size == 1) return
-        quickSort(array, 0, array.size - 1)
+    override fun sort(arr: Array<T>) {
+        if (arr.isEmpty() || arr.size == 1) return
+        quickSort(arr, 0, arr.size - 1)
     }
 
     private fun quickSort(array: Array<T>, left: Int, right: Int) {
@@ -26,17 +26,17 @@ class QuickSort<T : Comparable<T>> : Sort<T> {
 
     }
 
-    private fun oneWay(array: Array<T>, left: Int, right: Int): Int {
-        val pivot = array[left]
+    private fun oneWay(arr: Array<T>, left: Int, right: Int): Int {
+        val pivot = arr[left]
 
         var start = left + 1
         var end = right
 
         while (true) {
-            if (array[start] <= pivot) {
+            if (arr[start] <= pivot) {
                 start++
             } else {
-                swap(array, end, start)
+                arr.swap(end, start)
                 end--
             }
             // 极限情况
@@ -48,30 +48,30 @@ class QuickSort<T : Comparable<T>> : Sort<T> {
             }
         }
 
-        swap(array, left, end)
+        arr.swap(left, end)
         return end
     }
 
-    private fun twoWay(array: Array<T>, left: Int, right: Int): Int {
-        val pivot = array[left]
+    private fun twoWay(arr: Array<T>, left: Int, right: Int): Int {
+        val pivot = arr[left]
         var start = left + 1
         var end = right
 
         while (true) {
-            while (start <= end && array[start] < pivot) {
+            while (start <= end && arr[start] < pivot) {
                 start++
             }
-            while (end >= start && array[end] >= pivot) {
+            while (end >= start && arr[end] >= pivot) {
                 end--
             }
 
             if (start > end) {
                 break
             }
-            swap(array, start, end)
+            arr.swap(start, end)
         }
 
-        swap(array, left, end)
+        arr.swap(left, end)
         return end
     }
 

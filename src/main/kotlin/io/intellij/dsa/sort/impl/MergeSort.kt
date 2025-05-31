@@ -10,9 +10,9 @@ import io.intellij.dsa.sort.Sort
  */
 class MergeSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(array: Array<T>) {
-        if (array.isEmpty() || array.size == 1) return
-        this.divide(array, 0, array.size - 1)
+    override fun sort(arr: Array<T>) {
+        if (arr.isEmpty() || arr.size == 1) return
+        this.divide(arr, 0, arr.size - 1)
     }
 
     private fun divide(array: Array<T>, left: Int, right: Int) {

@@ -1,7 +1,7 @@
 package io.intellij.dsa.sort.impl
 
 import io.intellij.dsa.sort.Sort
-import io.intellij.dsa.swap
+import io.intellij.dsa.sort.swap
 
 /**
  * InsertSort 插入排序
@@ -11,14 +11,14 @@ import io.intellij.dsa.swap
  */
 class InsertSort<T : Comparable<T>> : Sort<T> {
 
-    override fun sort(array: Array<T>) {
-        if (array.isEmpty() || array.size == 1) return
+    override fun sort(arr: Array<T>) {
+        if (arr.isEmpty() || arr.size == 1) return
 
-        val n = array.size
+        val n = arr.size
         for (i in 1 until n) {
             for (j in i downTo 1) {
-                if (array[j] < array[j - 1]) {
-                    swap(array, j, j - 1)
+                if (arr[j] < arr[j - 1]) {
+                    arr.swap(j, j - 1)
                 }
             }
         }

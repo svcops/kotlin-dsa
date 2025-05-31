@@ -10,5 +10,5 @@ data class Vertex(val name: String, val id: Int)
 
 data class Edge(val from: Vertex, val to: Vertex, var weight: Double = DEFAULT_UNWEIGHTED_VALUE)
 
-open class VertexIndex {
+class VertexIndex {
 }
