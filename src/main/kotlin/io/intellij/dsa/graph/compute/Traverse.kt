@@ -8,7 +8,7 @@ import java.util.TreeSet
 import kotlin.collections.ArrayDeque
 
 /**
- * Traverse
+ * Traverse 图遍历
  *
  * @author tech@intellij.io
  * @since 2025-05-31

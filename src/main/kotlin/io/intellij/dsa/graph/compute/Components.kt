@@ -5,10 +5,9 @@ import io.intellij.dsa.graph.GraphCompute
 import io.intellij.dsa.graph.Vertex
 import io.intellij.dsa.uf.IndexedUnionFind
 import io.intellij.dsa.uf.UnionFind
-import java.util.*
 
 /**
- * Components
+ * Components 无向图连通分量
  *
  * @author tech@intellij.io
  * @since 2025-05-31
@@ -21,11 +20,13 @@ class Components(graph: Graph) : GraphCompute(graph) {
 
     fun compute(): Result {
         val result = Result(graph)
-        val visited = TreeSet<Int>()
-        var count = 0
+        val visited = BooleanArray(graph.getVertexIndex().size())
+        var count: Int
 
-        graph.getVertexes().forEach { vertex ->
-            if (!visited.contains(vertex.id)) {
+        graph.getVertexes().apply {
+            count = 0
+        }.forEach { vertex ->
+            if (!visited[vertex.id]) {
                 this.dfs(vertex, visited, result)
                 count++
                 result.setComponentCount(count)
@@ -34,12 +35,12 @@ class Components(graph: Graph) : GraphCompute(graph) {
         return result
     }
 
-    private fun dfs(vertex: Vertex, visited: TreeSet<Int>, result: Result) {
-        visited.add(vertex.id)
+    private fun dfs(vertex: Vertex, visited: BooleanArray, result: Result) {
+        visited[vertex.id] = true
 
         this.graph.adjacentEdges(vertex.id).forEach { edge ->
             val toV = edge.to
-            if (visited.contains(toV.id)) return@forEach
+            if (visited[toV.id]) return@forEach
 
             // Union-Find 合并操作
             result.uf.union(vertex, toV)

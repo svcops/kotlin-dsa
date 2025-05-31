@@ -10,7 +10,11 @@ import java.util.*
  */
 data class Vertex(val name: String, val id: Int)
 
-data class Edge(val from: Vertex, val to: Vertex, var weight: Double?)
+data class Edge(val from: Vertex, val to: Vertex, var weight: Double = 1.0) {
+    override fun toString(): String {
+        return "Edge(from=${from.name}, to=${to.name}, weight=$weight)"
+    }
+}
 
 // 维护 id 和 name 的索引
 class VertexIndex {

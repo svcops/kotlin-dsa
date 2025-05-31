@@ -1,6 +1,7 @@
 package io.intellij.dsa.graph
 
 import io.intellij.dsa.graph.compute.Components
+import io.intellij.dsa.graph.compute.Mst
 import io.intellij.dsa.graph.compute.Traverse
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -60,6 +61,32 @@ class GraphComputeTest {
 
         Assertions.assertTrue(result.hasPath("A", "C"))
         Assertions.assertFalse(result.hasPath("A", "G"))
+    }
+
+
+    val mstGraphText = """
+            0 1 4
+            0 5 8
+            1 5 11
+            1 2 8
+            5 6 7
+            2 6 2
+            5 4 8
+            4 6 4
+            2 3 3
+            4 3 3
+            """.trimIndent()
+
+    @Test
+    fun `test graph mst lazy prim`() {
+        Mst(buildGraph(mstGraphText, directed = false, weighted = true))
+            .lazyPrim().printMst()
+    }
+
+    @Test
+    fun `test graph mst kruskal`() {
+        Mst(buildGraph(mstGraphText, directed = false, weighted = true))
+            .kruskal().printMst()
     }
 
 }
