@@ -55,10 +55,9 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 
 ## 图
 
-*
+**[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt)**
 
-*[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt) [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
-**
+[顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
 
 - [稠密图 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
 - [稀疏图 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)
