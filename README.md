@@ -40,3 +40,10 @@ private fun heapify() {
 [AVL平衡树实现](src/main/kotlin/io/intellij/dsa/tree/bst/AVLTree.kt)
 
 - [旋转](src/main/kotlin/io/intellij/dsa/tree/bst/AVLRotate.kt)
+
+## 图
+
+[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt) [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
+
+- [稠密图 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
+- [稀疏图 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)

@@ -10,73 +10,109 @@ const val DEFAULT_UNWEIGHTED_VALUE = 1.0
  */
 interface Graph {
 
-    /**
-     * Checks if the graph is empty.
-     *
-     * @return true if the graph has no vertices, false otherwise.
-     */
     fun isEmpty(): Boolean {
         return getVertexNum() == 0
     }
 
     /**
-     * Checks if the graph is directed.
+     * Determines whether the graph is directed.
      *
-     * @return true if the graph is directed, false if it is undirected.
+     * @return true if the graph is directed, false otherwise
      */
-    fun isDirect(): Boolean
+    fun isDirected(): Boolean
 
     /**
-     * Checks if the graph is weighted.
+     * Checks whether the graph is weighted.
      *
-     * @return true if the graph has weighted edges, false if all edges are unweighted.
+     * @return true if the graph is weighted, false otherwise
      */
     fun isWeighted(): Boolean
 
     /**
-     * Gets the number of vertices in the graph.
+     * Retrieves the number of vertices in the graph.
      *
-     * @return the number of vertices.
+     * @return the total count of vertices in the graph
      */
-    fun getVertexNum(): Int
+    fun getVertexNum(): Int = getVertexIndex().size()
 
     /**
-     * Gets the number of edges in the graph.
+     * Retrieves the total number of edges in the graph.
      *
-     * @return the number of edges.
+     * @return the total count of edges in the graph
      */
     fun getEdgeNum(): Int
 
     /**
-     * Retrieves the list of all vertices present in the graph.
+     * Retrieves a list of all vertices in the graph.
      *
-     * @return a list containing all vertices of the graph.
+     * @return a list of Vertex objects representing all vertices in the graph
      */
-    fun getVertexes(): List<Vertex>
+    fun getVertexes(): List<Vertex> = getVertexIndex().getVertexes()
 
     /**
-     * Retrieves the list of all edges present in the graph.
+     * Retrieves a list of all edges in the graph.
      *
-     * @return a list containing all edges of the graph.
+     * @return a list of Edge objects representing all edges in the graph
      */
     fun getEdges(): List<Edge>
 
-    fun getEdge(from: String, to: String): Edge?
+    /**
+     * Retrieves an edge connecting the specified vertices by their names.
+     *
+     * @param from the name of the source vertex
+     * @param to the name of the destination vertex
+     * @return the Edge connecting the specified vertices, or null if no such edge exists or if either vertex is not found
+     */
+    fun getEdge(from: String, to: String): Edge? {
+        val fromV = getVertexIndex().getVertex(from)
+        val toV = getVertexIndex().getVertex(to)
+        if (fromV == null || toV == null) {
+            return null
+        }
+        return getEdge(fromV.id, toV.id)
+    }
 
+    /**
+     * Retrieves an edge connecting two vertices specified by their IDs.
+     *
+     * @param from the ID of the source vertex
+     * @param to the ID of the destination vertex
+     * @return the Edge connecting the specified vertices, or null if no such edge exists
+     */
     fun getEdge(from: Int, to: Int): Edge?
 
-    fun connect(from: String, to: String, weight: Double = DEFAULT_UNWEIGHTED_VALUE)
+    /**
+     * Connects two vertices in the graph with the default unweighted value.
+     *
+     * @param from the name of the source vertex
+     * @param to the name of the destination vertex
+     */
+    fun connect(from: String, to: String) = connect(from, to, DEFAULT_UNWEIGHTED_VALUE)
 
-    fun adjacentEdges(vertexName: String): List<Edge>
+    /**
+     * Connects two vertices in the graph with a weighted edge.
+     *
+     * @param from the name of the source vertex
+     * @param to the name of the destination vertex
+     * @param weight the weight of the edge connecting the vertices
+     */
+    fun connect(from: String, to: String, weight: Double)
 
-    fun adjacentEdges(vertexId: Int): List<Edge>
+    fun adjacentEdges(name: String): List<Edge> {
+        return getVertexIndex().getVertex(name)?.let { vertex ->
+            adjacentEdges(vertex.id)
+        } ?: emptyList()
+    }
+
+    /**
+     * Retrieves a list of edges that are adjacent to the vertex specified by its ID.
+     *
+     * @param id the ID of the vertex whose adjacent edges are to be retrieved
+     * @return a list of Edge objects representing the edges adjacent to the specified vertex
+     */
+    fun adjacentEdges(id: Int): List<Edge>
 
     fun showGraph()
 
-    fun vertexIndex(): VertexIndex
-}
-
-open class GraphUtils {
-    companion object {
-    }
+    fun getVertexIndex(): VertexIndex
 }

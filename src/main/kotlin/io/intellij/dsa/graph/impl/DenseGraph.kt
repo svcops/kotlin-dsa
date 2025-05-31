@@ -1,67 +1,177 @@
 package io.intellij.dsa.graph.impl
 
+import io.intellij.dsa.beautify
+import io.intellij.dsa.getLogger
 import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
-import io.intellij.dsa.graph.Vertex
 import io.intellij.dsa.graph.VertexIndex
+import org.apache.commons.lang3.StringUtils
 
 /**
- * DenseGraph
+ * DenseGraph 稠密图，邻接矩阵
  *
  * @author tech@intellij.io
  * @since 2025-05-29
  */
 class DenseGraph : Graph {
-    override fun isDirect(): Boolean {
-        TODO("Not yet implemented")
+
+    companion object {
+        val log = getLogger(DenseGraph::class.java)
     }
 
-    override fun isWeighted(): Boolean {
-        TODO("Not yet implemented")
+    private val directed: Boolean
+    private val weighted: Boolean
+
+    private var adjacencyMatrix: Array<Array<Double?>>
+
+    private val vertexIndex = VertexIndex()
+    private var edgesCount: Int = 0
+
+    constructor(directed: Boolean, weighted: Boolean) {
+        this.directed = directed
+        this.weighted = weighted
+        adjacencyMatrix = Array(2) { Array(2) { null } }
     }
 
-    override fun getVertexNum(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun isDirected(): Boolean = this.directed
 
-    override fun getEdgeNum(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun isWeighted(): Boolean = this.weighted
 
-    override fun getVertexes(): List<Vertex> {
-        TODO("Not yet implemented")
-    }
+    override fun getEdgeNum(): Int = this.edgesCount
 
     override fun getEdges(): List<Edge> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getEdge(from: String, to: String): Edge? {
-        TODO("Not yet implemented")
+        return if (isEmpty()) {
+            emptyList()
+        } else {
+            val edges = mutableListOf<Edge>()
+            for (i in 0 until adjacencyMatrix.size) {
+                for (j in 0 until adjacencyMatrix.size) {
+                    adjacencyMatrix[i][j]?.let { weight ->
+                        val fromV = vertexIndex.getVertex(i)!!
+                        val toV = vertexIndex.getVertex(j)!!
+                        edges.add(Edge(from = fromV, to = toV, weight = weight))
+                    }
+                }
+            }
+            edges
+        }
     }
 
     override fun getEdge(from: Int, to: Int): Edge? {
-        TODO("Not yet implemented")
+        if (from < 0 || to < 0 || from >= vertexIndex.size() || to >= vertexIndex.size()) {
+            return null
+        }
+
+        if (from == to) {
+            return null // No self-loops in this implementation
+        }
+
+        val weight = adjacencyMatrix[from][to]
+        return if (weight == null) {
+            null
+        } else {
+            Edge(
+                from = vertexIndex.getVertex(from)!!,
+                to = vertexIndex.getVertex(to)!!,
+                weight = weight
+            )
+        }
     }
 
     override fun connect(from: String, to: String, weight: Double) {
-        TODO("Not yet implemented")
+        if (StringUtils.isEmpty(from) || StringUtils.isEmpty(to)) {
+            throw IllegalArgumentException("Vertex names cannot be empty")
+        }
+        if (from == to) {
+            return
+        }
+        val fromV = vertexIndex.createVertex(from)
+        val toV = vertexIndex.createVertex(to)
+
+        this.expand(vertexIndex.size())
+        this.connect(fromV.id, toV.id, weight, directed = this.directed)
     }
 
-    override fun adjacentEdges(vertexName: String): List<Edge> {
-        TODO("Not yet implemented")
+    private fun expand(size: Int) {
+        if (size > adjacencyMatrix.size) {
+            val newSize = size
+            val newMatrix = Array(newSize) { Array<Double?>(newSize) { null } }
+            adjacencyMatrix.forEachIndexed { i, row ->
+                System.arraycopy(row, 0, newMatrix[i], 0, row.size)
+            }
+            adjacencyMatrix = newMatrix
+        }
     }
 
-    override fun adjacentEdges(vertexId: Int): List<Edge> {
-        TODO("Not yet implemented")
+    private fun connect(from: Int, to: Int, weight: Double, directed: Boolean) {
+        adjacencyMatrix[from][to]?.let { existingWeight ->
+            log.debug("Edge from $from to $to already exists with weight $existingWeight, updating to $weight")
+            edgesCount--
+        }
+        adjacencyMatrix[from][to] = weight
+        edgesCount++
+        if (!directed) {
+            this.connect(to, from, weight, true)
+        }
+    }
+
+    override fun adjacentEdges(id: Int): List<Edge> {
+        if (isEmpty() || id < 0 || id >= vertexIndex.size()) {
+            return emptyList()
+        }
+        val fromV = vertexIndex.getVertex(id)!!
+        return adjacencyMatrix[id].mapIndexedNotNull { toIndex, weight ->
+            weight?.let {
+                val toV = vertexIndex.getVertex(toIndex)!!
+                Edge(from = fromV, to = toV, weight = it)
+            }
+        }
     }
 
     override fun showGraph() {
-        TODO("Not yet implemented")
+        println("Graph: ${if (directed) "Directed" else "Undirected"}, ${if (weighted) "Weighted" else "Unweighted"}")
+        println("Vertices: ${vertexIndex.size()}")
+        println("Edges: $edgesCount") //
+
+        // 先打印顶点信息
+        println("Vertex Information:")
+        vertexIndex.getVertexes().forEach { vertex ->
+            println("ID: ${vertex.id}, Name: ${vertex.name}")
+        }
+
+        // 打印 matrix 并在第一行和第一列显示顶点信息
+        println("\nAdjacency Matrix:")
+
+        // 打印顶点ID作为列标题
+        print("      ") // 留出行标题的空间
+        for (i in 0 until vertexIndex.size()) {
+            val v = vertexIndex.getVertex(i)!!
+            print(beautify("${v.id}:${v.name}", 5))
+        }
+        println()
+
+        // 打印矩阵内容
+        val width = 5
+        for (i in 0 until vertexIndex.size()) {
+            val v = vertexIndex.getVertex(i)!!
+            print(beautify("${v.id}:${v.name}", width))
+
+            for (j in 0 until vertexIndex.size()) {
+                val element = if (i < adjacencyMatrix.size && j < adjacencyMatrix[i].size) {
+                    adjacencyMatrix[i][j]
+                } else {
+                    null
+                }
+
+                if (element != null) {
+                    print(beautify(element.toString(), width))
+                } else {
+                    print(beautify("nil", width))
+                }
+            }
+            println()
+        }
     }
 
-    override fun vertexIndex(): VertexIndex {
-        TODO("Not yet implemented")
-    }
-
+    override fun getVertexIndex(): VertexIndex = this.vertexIndex
 }

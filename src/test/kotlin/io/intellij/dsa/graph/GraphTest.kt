@@ -9,14 +9,23 @@ import org.junit.jupiter.api.Test
  */
 class GraphTest {
 
+    val graphText = """
+        A B 1
+        B C 2
+        C D 3
+        B D 4
+    """.trimIndent()
+
     @Test
     fun `test show dense graph`() {
-        println("Dense Graph")
+        buildGraph(graphText, directed = false, weighted = true, graphType = GraphType.DENSE)
+            .showGraph()
     }
 
     @Test
     fun `test show sparse graph`() {
-        println("Sparse Graph")
+        buildGraph(graphText, directed = true, weighted = true, graphType = GraphType.SPARSE)
+            .showGraph()
     }
 
 }
