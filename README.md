@@ -41,6 +41,12 @@ private fun heapify() {
 
 - [旋转](src/main/kotlin/io/intellij/dsa/tree/bst/AVLRotate.kt)
 
+红黑树：红黑树是4阶B树 (`2-3-4`树)的变体
+
+左偏红黑树：左偏红黑树是红黑树的一种变体，它的对红边（点）的位置做了一定限制，使得其插入与删除操作可以与 2-3 树构成一一对应
+
+AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红色节点只能作为右子节点。这导致 AA 树模拟了 2-3 树
+
 ## 图
 
 [图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt) [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
