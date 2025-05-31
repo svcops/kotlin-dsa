@@ -33,4 +33,4 @@ private fun heapify() {
 
 [基础二分搜索树](src/main/kotlin/io/intellij/dsa/tree/bst/BasicBST.kt)
 
-[AVL平衡树](src/main/kotlin/io/intellij/dsa/tree/bst/AvlTree.kt)
+[AVL平衡树](src/main/kotlin/io/intellij/dsa/tree/bst/AVLTree.kt)
