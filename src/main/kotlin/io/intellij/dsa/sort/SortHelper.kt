@@ -2,7 +2,7 @@ package io.intellij.dsa.sort
 
 import org.apache.commons.lang3.time.StopWatch
 
-internal fun createRandomArray(size: Int, range: Int): Array<Int> {
+fun createRandomArray(size: Int, range: Int): Array<Int> {
     return Array(size) { (0..range).random() }
 }
 

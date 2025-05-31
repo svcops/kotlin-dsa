@@ -14,7 +14,20 @@
 
 ### 堆
 
-> TODO
+[堆的定义](src/main/kotlin/io/intellij/dsa/tree/heap/Heap.kt)
+
+[堆的实现](src/main/kotlin/io/intellij/dsa/tree/heap/HeapImpl.kt)
+
+`heapify`
+
+```kotlin
+private fun heapify() {
+    // 从最后一个非叶子节点开始向上调整
+    for (i in (count / 2 - 1) downTo 0) {
+        siftDown(i)
+    }
+}
+```
 
 ### 二分搜索树
 
