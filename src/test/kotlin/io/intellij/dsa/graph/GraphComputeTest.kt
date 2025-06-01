@@ -1,11 +1,6 @@
 package io.intellij.dsa.graph
 
-import io.intellij.dsa.graph.compute.Components
-import io.intellij.dsa.graph.compute.CycleAnalyzer
-import io.intellij.dsa.graph.compute.Dijkstra
-import io.intellij.dsa.graph.compute.Mst
-import io.intellij.dsa.graph.compute.TopoSort
-import io.intellij.dsa.graph.compute.Traverse
+import io.intellij.dsa.graph.compute.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -91,7 +86,7 @@ class GraphComputeTest {
     }
 
     @Test
-    fun `test topo sort kahn`() {
+    fun `test graph topo sort kahn`() {
         val sort = TopoSort(
             buildGraph(
                 """

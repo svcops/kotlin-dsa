@@ -18,7 +18,7 @@ class TopoSort(graph: Graph) : GraphCompute(graph) {
         checkEmpty().checkDirected(true)
 
         val cycleAnalyzer = CycleAnalyzer(graph)
-        if (cycleAnalyzer.hasCycle(true)) {
+        if (cycleAnalyzer.findCycles().cycles.isNotEmpty()) {
             throw IllegalArgumentException("Graph has cycle")
         }
     }
@@ -68,7 +68,11 @@ class TopoSort(graph: Graph) : GraphCompute(graph) {
      * @param degree 入度
      * @param vertex 顶点
      */
-    data class VertexWrapper(val degree: Int, val vertex: Vertex)
+    data class VertexWrapper(val degree: Int, val vertex: Vertex) {
+        override fun toString(): String {
+            return "${vertex.name}($degree)"
+        }
+    }
 
     /**
      * 拓扑排序结果
@@ -91,17 +95,13 @@ class TopoSort(graph: Graph) : GraphCompute(graph) {
         /**
          * 打印拓扑排序结果
          */
-        fun printTopoSort(sorted: List<VertexWrapper>) {
+        private fun printTopoSort(sorted: List<VertexWrapper>) {
             if (sorted.isEmpty()) {
                 println("No vertices in the graph")
                 return
             }
-
-            val result = sorted.joinToString(" ") { vertexWrapper ->
-                "${vertexWrapper.vertex.name} (degree: ${vertexWrapper.degree})"
-            }
-
-            println("Topological Sort: $result")
+            println("Topological Sort Result: ")
+            println(sorted.joinToString(" -> ") { it.toString() })
         }
 
         /**

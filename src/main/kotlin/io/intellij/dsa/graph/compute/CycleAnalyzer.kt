@@ -24,7 +24,7 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
     /**
      * 查找图中所有的环
      */
-    fun findCycles(): Result {
+    fun findCycles(quickReturn: Boolean = false): Result {
         val record = Result(graph.isDirected())
         val vertices = graph.getVertexes()
         val visited = mutableSetOf<String>()
@@ -32,39 +32,10 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
         // 全遍历
         for (vertex in vertices) {
             if (vertex.name !in visited) {
-                dfs(vertex, visited, mutableListOf(), mutableSetOf(), record, 1, false)
+                dfs(vertex, visited, mutableListOf(), mutableSetOf(), record, 1, quickReturn)
             }
         }
         return record
-    }
-
-    /**
-     * 检查图中是否存在环
-     */
-    fun hasCycle(quickReturn: Boolean = false): Boolean {
-        log.debug("如果发现环，是否快速返回|{}", quickReturn)
-        val record = Result(graph.isDirected())
-        val vertexes = graph.getVertexes()
-        val visited = mutableSetOf<String>()
-
-        // 全遍历
-        for (vertex in vertexes) {
-            if (vertex.name in visited) {
-                val hasCycle = dfs(
-                    vertex,
-                    visited,
-                    mutableListOf(),
-                    mutableSetOf(),
-                    record,
-                    1,
-                    quickReturn
-                )
-                if (hasCycle && quickReturn) {
-                    return true
-                }
-            }
-        }
-        return record.cycles.isNotEmpty()
     }
 
     /**
