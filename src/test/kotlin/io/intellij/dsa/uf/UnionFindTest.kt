@@ -53,6 +53,23 @@ class UnionFindTest {
 
     }
 
+    @Test
+    fun `test tree like union find by id`() {
+        val uf: UnionFind<Node> = TreeIdUnionFind({ it.id })
+
+        uf.union(a, b)
+        uf.union(b, c)
+
+        uf.union(d, e)
+        uf.union(e, f)
+
+        Assertions.assertTrue(uf.isConnected(a, c))
+        Assertions.assertFalse(uf.isConnected(a, d))
+
+        uf.union(a, f)
+        Assertions.assertTrue(uf.isConnected(c, d))
+
+    }
 
     data class Node(val id: Int, val name: String)
 

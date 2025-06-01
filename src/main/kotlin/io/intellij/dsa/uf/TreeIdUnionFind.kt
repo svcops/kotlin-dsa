@@ -9,7 +9,7 @@ import java.util.*
  * @since 2025-06-01
  */
 class TreeIdUnionFind<T, ID : Comparable<ID>>(
-    private val identifierFunction: (T) -> ID?
+    private val identifierFunction: (T) -> ID
 ) : UnionFind<T> {
 
     private val storage: TreeMap<ID, Node> = TreeMap()
