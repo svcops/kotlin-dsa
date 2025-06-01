@@ -17,6 +17,7 @@
 [并查集的定义](src/main/kotlin/io/intellij/dsa/uf/UnionFind.kt)
 
 - [基于索引的并查集](src/main/kotlin/io/intellij/dsa/uf/IndexedUnionFind.kt)
+- [基于树的并查集](src/main/kotlin/io/intellij/dsa/uf/TreeUnionFind.kt)
 
 ### 堆
 

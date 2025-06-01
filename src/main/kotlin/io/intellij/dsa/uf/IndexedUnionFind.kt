@@ -158,8 +158,8 @@ class IndexedUnionFind<T> : UnionFind<T> {
         this.count = 0
     }
 
-}
+    internal fun <T> Int.indexInArr(arr: Array<T>): Boolean {
+        return this >= 0 && this < arr.size
+    }
 
-internal fun <T> Int.indexInArr(arr: Array<T>): Boolean {
-    return this >= 0 && this < arr.size
 }

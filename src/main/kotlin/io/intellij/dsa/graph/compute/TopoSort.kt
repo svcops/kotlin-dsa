@@ -12,14 +12,8 @@ import java.util.*
  * @since 2025-06-01
  */
 class TopoSort(graph: Graph) : GraphCompute(graph) {
-    init {
-        check()
-    }
 
-    /**
-     * 检查图的有效性
-     */
-    private fun check() {
+    init {
         // 必须是有向无环图
         checkEmpty().checkDirected(true)
 
