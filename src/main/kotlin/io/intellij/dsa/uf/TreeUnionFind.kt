@@ -3,7 +3,7 @@ package io.intellij.dsa.uf
 import java.util.*
 
 /**
- * TreeUnionFind
+ * TreeUnionFind 连接对象本身
  *
  * @author tech@intellij.io
  * @since 2025-06-01
@@ -90,7 +90,7 @@ class TreeUnionFind<T> : UnionFind<T> {
         this.storage.clear()
     }
 
-    class Node<T> {
+    inner class Node<T> {
         var parent: Node<T>? = null
 
         val data: T
