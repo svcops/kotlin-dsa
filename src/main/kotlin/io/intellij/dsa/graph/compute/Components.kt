@@ -20,7 +20,7 @@ class Components(graph: Graph) : GraphCompute(graph) {
 
     fun compute(): Result {
         val result = Result(graph)
-        val visited = BooleanArray(graph.vertexIndex().size())
+        val visited = BooleanArray(graph.getVertexesNum())
         var count: Int
 
         graph.getVertexes().apply {

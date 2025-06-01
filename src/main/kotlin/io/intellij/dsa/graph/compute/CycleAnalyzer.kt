@@ -27,17 +27,12 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
     fun findCycles(): Result {
         val record = Result(graph.isDirected())
         val vertices = graph.getVertexes()
-        val visited = BooleanArray(vertices.size) { false }
-        val visitedShow = mutableSetOf<String>()
+        val visited = mutableSetOf<String>()
 
         // 全遍历
         for (vertex in vertices) {
-            if (!visited[vertex.id]) {
-                dfs(
-                    vertex, visited, visitedShow,
-                    mutableListOf(), mutableSetOf(),
-                    record, 1, false
-                )
+            if (vertex.name !in visited) {
+                dfs(vertex, visited, mutableListOf(), mutableSetOf(), record, 1, false)
             }
         }
         return record
@@ -46,27 +41,25 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
     /**
      * 检查图中是否存在环
      */
-    fun hasCycle(hasCycleThenQuickReturn: Boolean = false): Boolean {
-        log.debug("如果发现环，是否快速返回|{}", hasCycleThenQuickReturn)
+    fun hasCycle(quickReturn: Boolean = false): Boolean {
+        log.debug("如果发现环，是否快速返回|{}", quickReturn)
         val record = Result(graph.isDirected())
-        val vertices = graph.getVertexes()
-        val visited = BooleanArray(vertices.size) { false }
-        val visitedShow = mutableSetOf<String>()
+        val vertexes = graph.getVertexes()
+        val visited = mutableSetOf<String>()
 
         // 全遍历
-        for (vertex in vertices) {
-            if (!visited[vertex.id]) {
+        for (vertex in vertexes) {
+            if (vertex.name in visited) {
                 val hasCycle = dfs(
                     vertex,
                     visited,
-                    visitedShow,
                     mutableListOf(),
                     mutableSetOf(),
                     record,
                     1,
-                    hasCycleThenQuickReturn
+                    quickReturn
                 )
-                if (hasCycle && hasCycleThenQuickReturn) {
+                if (hasCycle && quickReturn) {
                     return true
                 }
             }
@@ -84,16 +77,14 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
      */
     private fun dfs(
         from: Vertex,
-        visited: BooleanArray,
-        visitedShow: MutableSet<String>,
+        visited: MutableSet<String>,
         path: MutableList<Vertex>,
         marked: MutableSet<String>,
         record: Result,
         depth: Int,
-        hasCycleThenQuickReturn: Boolean
+        quickReturn: Boolean
     ): Boolean {
-        visited[from.id] = true
-        visitedShow.add(from.name)
+        visited.add(from.name)
 
         marked.add(from.name)
         path.add(from)
@@ -103,7 +94,7 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
             "{}开始遍历 {} 节点|visited={}|marked={}",
             indent,
             from.name,
-            visitedShow.joinToString(" "),
+            visited.joinToString(" "),
             marked.joinToString(" ")
         )
 
@@ -114,26 +105,17 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
             val to = edge.to
             log.debug("{}开始处理边 {} --> {}", indent, edge.from.name, to.name)
 
-            if (!visited[to.id]) {
+            if (to.name !in visited) {
                 log.debug("{}没有访问过 {} 节点,深度遍历", indent, to.name)
                 val hasCycle =
-                    dfs(
-                        to,
-                        visited,
-                        visitedShow,
-                        path.toMutableList(),
-                        marked,
-                        record,
-                        depth + 1,
-                        hasCycleThenQuickReturn
-                    )
-                if (hasCycle && hasCycleThenQuickReturn) {
+                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickReturn)
+                if (hasCycle && quickReturn) {
                     return true
                 }
             } else {
                 if (to.name in marked) {
                     log.debug("{}在节点 {} 发现环|处理的边为 {}->{}", indent, from.name, edge.from.name, to.name)
-                    if (hasCycleThenQuickReturn) {
+                    if (quickReturn) {
                         return true
                     }
                     // 说明有环
@@ -146,16 +128,7 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
                 } else {
                     // important
                     log.debug("{}重新处理 {} 节点; 边为 {}->{}", indent, to.name, edge.from.name, to.name)
-                    dfs(
-                        to,
-                        visited,
-                        visitedShow,
-                        path.toMutableList(),
-                        marked,
-                        record,
-                        depth + 1,
-                        hasCycleThenQuickReturn
-                    )
+                    dfs(to, visited, path.toMutableList(), marked, record, depth + 1, quickReturn)
                 }
             }
         }
@@ -163,12 +136,12 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
         // 出栈
         log.debug(
             "{}出栈 {} 节点，因为不确定是否还有其他点 ??? --> {} |visited={}|marked={}",
-            indent, from.name, from.name, visitedShow.joinToString(" "), marked.joinToString(" ")
+            indent, from.name, from.name, visited.joinToString(" "), marked.joinToString(" ")
         )
         marked.remove(from.name)
         log.debug(
             "{}完成处理 {} 节点|visited={}|marked={}",
-            indent, from.name, visitedShow.joinToString(" "), marked.joinToString(" ")
+            indent, from.name, visited.joinToString(" "), marked.joinToString(" ")
         )
         return record.cycles.isNotEmpty()
     }
