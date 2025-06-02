@@ -34,6 +34,8 @@ class BstTest {
         val avl: BST<Int, Int> = AVLTree()
         for (i in 1..7) {
             avl.add(i, i * 10)
+            printBST(avl.getRoot())
+            println("----------")
         }
 
         Assertions.assertEquals(7, avl.size())

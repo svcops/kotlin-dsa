@@ -66,7 +66,7 @@ internal fun <K : Comparable<K>, V> BSTNode<K, V>.lr(): BSTNode<K, V> {
         z
      */
     return this.setLeft(
-        this.getLeft()!!.rotateNodeAndRight()
+        this.getLeft()?.rotateNodeAndRight()
     ).updateHeight().rotateNodeAndLeft()
 }
 
@@ -80,7 +80,7 @@ internal fun <K : Comparable<K>, V> BSTNode<K, V>.rl(): BSTNode<K, V> {
     */
 
     return this.setRight(
-        this.getRight()!!.rotateNodeAndLeft()
+        this.getRight()?.rotateNodeAndLeft()
     ).updateHeight().rotateNodeAndRight()
 }
 
