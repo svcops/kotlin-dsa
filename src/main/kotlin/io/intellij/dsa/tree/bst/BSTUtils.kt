@@ -40,51 +40,7 @@ internal fun <K : Comparable<K>, V> getMax(node: BSTNode<K, V>?): BSTNode<K, V>?
     return node?.getLeft()?.let { getMax(it) } ?: node
 }
 
-internal fun <K : Comparable<K>, V> preorderTraversal(node: BSTNode<K, V>?, action: (BSTNode<K, V>) -> Unit) {
-    if (node == null) {
-        return
-    }
-    action.apply { node }
-    preorderTraversal(node.getLeft(), action)
-    preorderTraversal(node.getRight(), action)
-}
-
-internal fun <K : Comparable<K>, V> inorderTraversal(node: BSTNode<K, V>?, action: (BSTNode<K, V>) -> Unit) {
-    if (node == null) {
-        return
-    }
-    inorderTraversal(node.getLeft(), action)
-    action.apply { node }
-    inorderTraversal(node.getRight(), action)
-}
-
-internal fun <K : Comparable<K>, V> postorderTraversal(node: BSTNode<K, V>?, action: (BSTNode<K, V>) -> Unit) {
-    if (node == null) {
-        return
-    }
-    postorderTraversal(node.getLeft(), action)
-    postorderTraversal(node.getRight(), action)
-    action.apply { node }
-}
-
-internal fun <K : Comparable<K>, V> bfs(node: BSTNode<K, V>?, action: (BSTNode<K, V>) -> Unit) {
-    if (node == null) {
-        return
-    }
-    val queue = ArrayDeque<BSTNode<K, V>>()
-
-    queue.add(node)
-
-    while (queue.isNotEmpty()) {
-        val current = queue.removeFirst()
-        action(current)
-
-        current.getLeft()?.let { queue.addLast(it) }
-        current.getRight()?.let { queue.addLast(it) }
-    }
-}
-
-fun <K : Comparable<K>, V> printBST(root: BSTNode<K, V>?) {
+internal fun <K : Comparable<K>, V> printBST(root: BSTNode<K, V>?) {
     if (root == null) {
         println("空树")
         return

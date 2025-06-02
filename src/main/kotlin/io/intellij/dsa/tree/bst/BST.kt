@@ -89,56 +89,53 @@ interface BST<K : Comparable<K>, V> {
         return getMax(getRoot())
     }
 
-    /**
-     * Performs a preorder traversal of the binary search tree (BST) and applies the specified action
-     * to each node in the tree.
-     *
-     * A preorder traversal processes the current node before recursively processing the left and
-     * right child nodes. For each node visited, the provided action is executed.
-     *
-     * @param action a function that takes a single parameter, the currently visited BST node, and
-     *               defines the operation to perform on that node during the traversal
-     */
-    fun preorderTraversal(action: (BSTNode<K, V>) -> Unit) {
-        preorderTraversal(getRoot(), action)
+    fun preorder(action: (BSTNode<K, V>) -> Unit) {
+        getRoot()?.preorder(action)
     }
 
-    /**
-     * Performs an in-order traversal of the binary search tree (BST) and applies the specified action
-     * to each node in the tree.
-     *
-     * In an in-order traversal, the left subtree is processed first, followed by the current node, and
-     * finally the right subtree. For each node visited, the provided action is executed.
-     *
-     * @param action a function that takes a single parameter, the currently visited BST node, and
-     * defines the operation to perform on that node during the traversal
-     */
-    fun inorderTraversal(action: (BSTNode<K, V>) -> Unit) {
-        inorderTraversal(getRoot(), action)
+    fun inorder(action: (BSTNode<K, V>) -> Unit) {
+        getRoot()?.inorder(action)
     }
 
-    /**
-     * Performs a post-order traversal of the binary search tree (BST) and applies the specified action
-     * to each node in the tree.
-     *
-     * In a post-order traversal, the left subtree is processed first, followed by the right subtree,
-     * and finally the current node. For each node visited, the provided action is executed.
-     *
-     * @param action a function that takes a single parameter, the currently visited BST node, and
-     * defines the operation to perform on that node during the traversal
-     */
-    fun postorderTraversal(action: (BSTNode<K, V>) -> Unit) {
-        postorderTraversal(getRoot(), action)
+    fun postorder(action: (BSTNode<K, V>) -> Unit) {
+        getRoot()?.postorder(action)
     }
 
-    /**
-     * Performs a breadth-first traversal (BFS) on the binary search tree (BST) starting from the root node
-     * and applies the specified action to each node encountered during the traversal.
-     *
-     * @param action a function that takes a single parameter, the currently visited BST node, and defines
-     *               the operation to perform on that node during the traversal
-     */
     fun bfs(action: (BSTNode<K, V>) -> Unit) {
-        bfs(getRoot(), action)
+        getRoot()?.bfs(action)
     }
+
+    fun <K : Comparable<K>, V> BSTNode<K, V>.preorder(action: (BSTNode<K, V>) -> Unit) {
+        action.apply { this }
+
+        getLeft()?.preorder(action)
+        getRight()?.preorder(action)
+    }
+
+    fun <K : Comparable<K>, V> BSTNode<K, V>.inorder(action: (BSTNode<K, V>) -> Unit) {
+        getLeft()?.inorder(action)
+        action.apply { this }
+        getRight()?.inorder(action)
+    }
+
+    fun <K : Comparable<K>, V> BSTNode<K, V>.postorder(action: (BSTNode<K, V>) -> Unit) {
+        getLeft()?.postorder(action)
+        getRight()?.postorder(action)
+        action.apply { this }
+    }
+
+
+    fun <K : Comparable<K>, V> BSTNode<K, V>.bfs(action: (BSTNode<K, V>) -> Unit) {
+        val queue = ArrayDeque<BSTNode<K, V>>()
+        queue.add(this)
+
+        while (queue.isNotEmpty()) {
+            val current = queue.removeFirst()
+            action(current)
+
+            current.getLeft()?.let { queue.addLast(it) }
+            current.getRight()?.let { queue.addLast(it) }
+        }
+    }
+
 }
