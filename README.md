@@ -51,6 +51,12 @@ private fun heapify() {
 
 - [旋转](src/main/kotlin/io/intellij/dsa/tree/bst/AVLRotate.kt)
 
+[二三树的定义](src/main/kotlin/io/intellij/dsa/tree/twothree/TTTree.kt)
+和 [二三树的实现](src/main/kotlin/io/intellij/dsa/tree/twothree/TTTreeImpl.kt)
+
+- 插入操作，二三树会将新节点插入到一个叶子节点上，并可能需要分裂出父节点
+- 删除操作，二三树会将一个节点删除，并可能需要合并或借用兄弟节点的值
+
 红黑树：红黑树是4阶B树 (`2-3-4`树)的变体
 
 左偏红黑树：左偏红黑树是红黑树的一种变体，它的对红边（点）的位置做了一定限制，使得其插入与删除操作可以与 2-3 树构成一一对应

@@ -227,7 +227,6 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
         }
     }
 
-
     override fun clear() {
         this.root == null
         this.count = 0
