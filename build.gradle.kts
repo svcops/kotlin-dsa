@@ -35,4 +35,17 @@ tasks.test {
     useJUnitPlatform() {
         includeEngines("junit-jupiter")
     }
+
+    testLogging {
+        events("passed", "skipped", "failed")
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+
+        // 设置日志级别
+        showStandardStreams = true
+    }
+
+    systemProperty("logback.configurationFile", "logback-test.xml")
+
 }
