@@ -16,11 +16,13 @@
 
 ## 排序
 
-### O(n^2)
-
 [排序的定义](src/main/kotlin/io/intellij/dsa/sort/Sort.kt)
 
+### O(n^2)
+
 [冒泡排序](src/main/kotlin/io/intellij/dsa/sort/impl/BubbleSort.kt)
+
+[插入排序](src/main/kotlin/io/intellij/dsa/sort/impl/InsertSort.kt)
 
 ### O(nlog(n))
 
