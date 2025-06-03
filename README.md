@@ -39,9 +39,9 @@ private fun heapify() {
 }
 ```
 
-### 二分搜索树
+### 搜索树
 
-[二分搜索树的定义](src/main/kotlin/io/intellij/dsa/tree/bst/BST.kt)
+[二分搜索树定义](src/main/kotlin/io/intellij/dsa/tree/bst/BST.kt)
 
 - [节点定义](src/main/kotlin/io/intellij/dsa/tree/bst/BSTNode.kt)
 
@@ -49,7 +49,9 @@ private fun heapify() {
 
 [AVL平衡树实现](src/main/kotlin/io/intellij/dsa/tree/bst/AVLTree.kt)
 
-- [旋转](src/main/kotlin/io/intellij/dsa/tree/bst/AVLRotate.kt)
+- 基于 `height` 计算 `balance factor` 旋转平衡
+  - `height`: 节点的高度，即从该节点到叶子节点的最长路径长度
+- [旋转操作: LL RR LR RL](src/main/kotlin/io/intellij/dsa/tree/bst/AVLRotate.kt)
 
 [二三树的定义](src/main/kotlin/io/intellij/dsa/tree/twothree/TTTree.kt)
 和 [二三树的实现](src/main/kotlin/io/intellij/dsa/tree/twothree/TTTreeImpl.kt)
