@@ -22,6 +22,8 @@ interface TTTree<K : Comparable<K>, V> {
 
     fun remove(key: K): V?
 
+    fun inorder(action: (K, V) -> Unit)
+
     fun clear()
 
     fun printTree()

@@ -37,7 +37,7 @@ class IndexedUnionFind<T> : UnionFind<T> {
     }
 
     override fun add(value: T): Boolean {
-        val index = indexFunc.invoke(value)
+        val index = indexFunc(value)
         if (index < 0) {
             throw IllegalArgumentException("Index must be non-negative")
         }
@@ -69,8 +69,8 @@ class IndexedUnionFind<T> : UnionFind<T> {
     }
 
     override fun union(value1: T, value2: T): Boolean {
-        val v1Index = indexFunc.invoke(value1)
-        val v2Index = indexFunc.invoke(value2)
+        val v1Index = indexFunc(value1)
+        val v2Index = indexFunc(value2)
 
         if (v1Index < 0) {
             log.equals("Index for value1 must be non-negative")
@@ -128,7 +128,7 @@ class IndexedUnionFind<T> : UnionFind<T> {
     }
 
     private fun getParent(value: T): Int {
-        val curIndex = indexFunc.invoke(value)
+        val curIndex = indexFunc(value)
         return if (curIndex.indexInArr(parent)) {
             parent[curIndex]
         } else {
@@ -137,8 +137,8 @@ class IndexedUnionFind<T> : UnionFind<T> {
     }
 
     override fun isConnected(value1: T, value2: T): Boolean {
-        val v1Index = indexFunc.invoke(value1)
-        val v2Index = indexFunc.invoke(value2)
+        val v1Index = indexFunc(value1)
+        val v2Index = indexFunc(value2)
         if (!v1Index.indexInArr(parent) || !v2Index.indexInArr(parent)) {
             return false
         }

@@ -35,11 +35,11 @@ class Traverse(
     // 深度优先遍历
     private fun dfs(vertex: Vertex, vc: (Vertex) -> Unit, ec: (Edge) -> Unit, visited: TreeSet<Int>) {
         visited.add(vertex.id)
-        vc.invoke(vertex)
+        vc(vertex)
         this.graph.adjacentEdges(vertex.id).forEach {
             val toV = it.to
             if (visited.contains(toV.id)) return@forEach
-            ec.invoke(it)
+            ec(it)
             this.dfs(toV, vc, ec, visited)
         }
     }
@@ -61,11 +61,11 @@ class Traverse(
         while (queue.isNotEmpty()) {
             queue.removeFirst().let { v ->
                 visited.add(v.id)
-                vc.invoke(v)
+                vc(v)
                 this.graph.adjacentEdges(v.id).forEach { e ->
                     val toV = e.to
                     if (visited.contains(toV.id)) return@forEach
-                    ec.invoke(e)
+                    ec(e)
                     queue.addLast(toV)
                 }
             }
