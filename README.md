@@ -1,13 +1,31 @@
-# kotlin dsa
+# Data Structures and Algorithms in Kotlin
 
-> Data Structures and Algorithms in Kotlin
+<!-- TOC -->
+* [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
+  * [排序](#排序)
+    * [O(n^2)](#on2)
+    * [O(nlog(n))](#onlogn)
+  * [查找](#查找)
+    * [并查集](#并查集)
+    * [堆](#堆)
+    * [搜索树](#搜索树)
+  * [图](#图)
+    * [定义](#定义)
+    * [算法](#算法)
+<!-- TOC -->
 
 ## 排序
 
+### O(n^2)
+
+[排序的定义](src/main/kotlin/io/intellij/dsa/sort/Sort.kt)
+
 [冒泡排序](src/main/kotlin/io/intellij/dsa/sort/impl/BubbleSort.kt)
-[插入排序](src/main/kotlin/io/intellij/dsa/sort/impl/InsertSort.kt)
+
+### O(nlog(n))
 
 [归并排序](src/main/kotlin/io/intellij/dsa/sort/impl/MergeSort.kt)
+
 [快速排序](src/main/kotlin/io/intellij/dsa/sort/impl/QuickSort.kt)
 
 ## 查找
@@ -67,25 +85,38 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 
 ## 图
 
-**[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt)**
+### 定义
+
+[图的定义](src/main/kotlin/io/intellij/dsa/graph/Graph.kt)
 
 [顶点和边的定义](src/main/kotlin/io/intellij/dsa/graph/VertexEdge.kt)
 
-[稠密图 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
+[稠密图 使用 邻接矩阵](src/main/kotlin/io/intellij/dsa/graph/impl/DenseGraph.kt)
 
-[稀疏图 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)
+[稀疏图 使用 邻接表](src/main/kotlin/io/intellij/dsa/graph/impl/SparseGraph.kt)
+
+### 算法
 
 **[图中的算法](src/main/kotlin/io/intellij/dsa/graph/compute)**
 
-- [图的遍历](src/main/kotlin/io/intellij/dsa/graph/compute/Traverse.kt)
-  - 深度优先遍历 `dfs`
-  - 广度优先遍历 `bfs`
-- [无向图联通分量](src/main/kotlin/io/intellij/dsa/graph/compute/Components.kt)
-- [有向无环拓扑排序](src/main/kotlin/io/intellij/dsa/graph/compute/TopoSort.kt)
-  - `Kahn` 算法：筛选入度为0的顶点 + 队列 + BFS
-- [最小生成树](src/main/kotlin/io/intellij/dsa/graph/compute/Mst.kt)
-  - `LazyPrim`算法：深度优先遍历 + 切分
-  - `Kruskal`算法：最小堆 + 并查集 + 切分
-- [单源最短路径](src/main/kotlin/io/intellij/dsa/graph/compute/Dijkstra.kt)
-  - 思路：局部最优更新到全局最优
-- [环分析](src/main/kotlin/io/intellij/dsa/graph/compute/CycleAnalyzer.kt)
+[图的遍历](src/main/kotlin/io/intellij/dsa/graph/compute/Traverse.kt)
+
+- 深度优先遍历 `dfs`
+- 广度优先遍历 `bfs`
+
+[无向图联通分量](src/main/kotlin/io/intellij/dsa/graph/compute/Components.kt)
+
+[有向无环拓扑排序](src/main/kotlin/io/intellij/dsa/graph/compute/TopoSort.kt)
+
+- `Kahn` 算法：筛选入度为0的顶点 + 队列 + BFS
+
+[最小生成树](src/main/kotlin/io/intellij/dsa/graph/compute/Mst.kt)
+
+- `LazyPrim`算法：深度优先遍历 + 切分
+- `Kruskal`算法：最小堆 + 并查集 + 切分
+
+[单源最短路径](src/main/kotlin/io/intellij/dsa/graph/compute/Dijkstra.kt)
+
+- 思路：局部最优更新到全局最优
+
+[环分析](src/main/kotlin/io/intellij/dsa/graph/compute/CycleAnalyzer.kt)
