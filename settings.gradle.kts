@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
         gradlePluginPortal()
     }
 }
@@ -9,4 +9,4 @@ pluginManagement {
 //     id 'org.gradle.toolchains.foojay-resolver-convention' version "${foojay_version}"
 // }
 
-rootProject.name = 'kotlin-dsa'
+rootProject.name = "kotlin-dsa"
