@@ -1,6 +1,7 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
+
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
   * [排序](#排序)
     * [O(n^2)](#on2)
@@ -12,6 +13,8 @@
   * [图](#图)
     * [定义](#定义)
     * [算法](#算法)
+  * [动态规划](#动态规划)
+
 <!-- TOC -->
 
 ## 排序
@@ -122,3 +125,7 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 - 思路：局部最优更新到全局最优
 
 [环分析](src/main/kotlin/io/intellij/dsa/graph/compute/CycleAnalyzer.kt)
+
+## 动态规划
+
+[Dynamic Programming](DP.md)
