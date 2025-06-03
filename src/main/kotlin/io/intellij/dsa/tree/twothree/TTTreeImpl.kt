@@ -12,9 +12,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
 
     override fun size(): Int = this.count
 
-    override fun contains(key: K): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun contains(key: K): Boolean = get(key) != null
 
     override fun get(key: K): V? {
         return get(this.root, key)
