@@ -10,6 +10,8 @@ interface TTTree<K : Comparable<K>, V> {
 
     fun isEmpty(): Boolean = size() == 0
 
+    fun getRoot(): TTNode<K, V>?
+
     fun size(): Int
 
     fun contains(key: K): Boolean
@@ -22,4 +24,5 @@ interface TTTree<K : Comparable<K>, V> {
 
     fun clear()
 
+    fun printTree()
 }

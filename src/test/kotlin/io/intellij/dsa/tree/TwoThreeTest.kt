@@ -30,14 +30,31 @@ class TwoThreeTest {
     fun `test two tree tree add`() {
         TTTreeImpl<Int, String>().apply {
             this.add(1, "one")
+            this.printTree()
+
             this.add(2, "two")
+            this.printTree()
+
             this.add(3, "three")
+            this.printTree()
+
             this.add(4, "four")
+            this.printTree()
+
             this.add(5, "five")
+            this.printTree()
+
             this.add(6, "six")
+            this.printTree()
+
             this.add(7, "seven")
+            this.printTree()
+
             this.add(8, "eight")
+            this.printTree()
+
             this.add(9, "nine")
+            this.printTree()
         }
     }
 

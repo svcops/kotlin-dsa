@@ -10,6 +10,8 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
     private var root: TTNode<K, V>? = null
     private var count = 0
 
+    override fun getRoot(): TTNode<K, V>? = this.root
+
     override fun size(): Int = this.count
 
     override fun contains(key: K): Boolean = get(key) != null
@@ -182,4 +184,29 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
         this.count = 0
     }
 
+    override fun printTree() {
+        if (this.root == null) return println("Empty Tree")
+
+        println("2-3 Tree Structure:")
+        printTreeHelper(root, "", true)
+    }
+
+    private fun printTreeHelper(node: TTNode<K, V>?, prefix: String, isLast: Boolean) {
+        if (node == null) return
+
+        // 打印当前节点
+        val connector = if (isLast) "└── " else "├── "
+        val nodeContent = if (node.keys.isEmpty()) "[]" else node.keys.joinToString(", ") { "${it.key}" }
+        println("$prefix$connector$nodeContent")
+
+        // 如果不是叶子节点，递归打印子节点
+        if (!node.isLeaf()) {
+            val childPrefix = prefix + if (isLast) "    " else "│   "
+
+            for (i in node.children.indices) {
+                val isLastChild = (i == node.children.size - 1)
+                printTreeHelper(node.children[i], childPrefix, isLastChild)
+            }
+        }
+    }
 }
