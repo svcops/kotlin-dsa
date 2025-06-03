@@ -109,9 +109,17 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
     // 一定是3节点分裂
     private fun splitRebalance(splitNode: TTNode<K, V>) {
         /*
-              x  y  z       y
-            /   |  \      /   \
-          a    b   c    x      z
+            x y z     y
+                    /  \
+                   x    z
+         */
+
+        /*
+              x  y  z             y
+            /   |  \  \         /   \
+          a    b   c   d       x      z
+                             /  \    /  \
+                            a    b  c    d
          */
 
         val middlePair = splitNode.keys[1]
@@ -137,8 +145,8 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
             rightNode.children.forEach { it.parent = rightNode }
         }
 
-        val parentNode = splitNode.parent
-        if (parentNode == null) {
+        val curParent = splitNode.parent
+        if (curParent == null) {
             this.root = TTNode<K, V>().apply {
                 this.add(middlePair.key, middlePair.value)
                 this.children.add(leftNode)
@@ -149,19 +157,19 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
             rightNode.parent = this.root
         } else {
 
-            val index = parentNode.children.indexOf(splitNode)
-            parentNode.children.removeAt(index)
+            val index = curParent.children.indexOf(splitNode)
+            curParent.children.removeAt(index)
 
             // 这里parent可能会形成4节点
-            parentNode.children.add(index, rightNode)
-            parentNode.children.add(index, leftNode)
+            curParent.children.add(index, rightNode)
+            curParent.children.add(index, leftNode)
 
-            leftNode.parent = parentNode
-            rightNode.parent = parentNode
+            leftNode.parent = curParent
+            rightNode.parent = curParent
 
-            parentNode.add(middlePair.key, middlePair.value)
-            if (parentNode.keys.size > 2) {
-                splitRebalance(parentNode)
+            curParent.add(middlePair.key, middlePair.value)
+            if (curParent.keys.size > 2) {
+                splitRebalance(curParent)
             }
         }
 
