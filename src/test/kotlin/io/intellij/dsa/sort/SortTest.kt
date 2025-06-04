@@ -1,9 +1,9 @@
 package io.intellij.dsa.sort
 
-import io.intellij.dsa.sort.impl.BubbleSort
 import io.intellij.dsa.sort.impl.InsertSort
 import io.intellij.dsa.sort.impl.MergeSort
 import io.intellij.dsa.sort.impl.QuickSort
+import io.intellij.dsa.sort.impl.SelectSort
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test
 class SortTest {
 
     @Test
-    fun `test bubble sort`() {
-        test(BubbleSort())
+    fun `test select sort`() {
+        test(SelectSort())
     }
 
     @Test

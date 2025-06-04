@@ -4,12 +4,12 @@ import io.intellij.dsa.sort.Sort
 import io.intellij.dsa.sort.swap
 
 /**
- * BubbleSort 冒泡排序
+ * SelectSort 选择排序
  *
  * @author tech@intellij.io
  * @since 2025-05-30
  */
-class BubbleSort<T : Comparable<T>> : Sort<T> {
+class SelectSort<T : Comparable<T>> : Sort<T> {
 
     override fun sort(arr: Array<T>) {
         if (arr.isEmpty() || arr.size == 1) return

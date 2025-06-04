@@ -1,11 +1,10 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
-
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
   * [排序](#排序)
-    * [O(n^2)](#on2)
-    * [O(nlog(n))](#onlogn)
+    * [$O(n^2)$](#on2)
+    * [$O(nlog(n))$](#onlogn)
   * [查找](#查找)
     * [并查集](#并查集)
     * [堆](#堆)
@@ -14,20 +13,19 @@
     * [定义](#定义)
     * [算法](#算法)
   * [动态规划](#动态规划)
-
 <!-- TOC -->
 
 ## 排序
 
 [排序的定义](src/main/kotlin/io/intellij/dsa/sort/Sort.kt)
 
-### O(n^2)
+### $O(n^2)$
 
-[冒泡排序](src/main/kotlin/io/intellij/dsa/sort/impl/BubbleSort.kt)
+[选择排序](src/main/kotlin/io/intellij/dsa/sort/impl/SelectSort.kt)
 
 [插入排序](src/main/kotlin/io/intellij/dsa/sort/impl/InsertSort.kt)
 
-### O(nlog(n))
+### $O(nlog(n))$
 
 [归并排序](src/main/kotlin/io/intellij/dsa/sort/impl/MergeSort.kt)
 
