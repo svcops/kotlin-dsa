@@ -15,7 +15,7 @@ internal fun Int.valueIn(min: Int, max: Int): Boolean {
     if (min > max) {
         throw IllegalArgumentException("min should be less than or equal to max")
     }
-    return this >= min && this <= max
+    return this in min..max
 }
 
 internal fun <K : Comparable<K>, V> BSTNode<K, V>.rebalance(action: Action): BSTNode<K, V> {
