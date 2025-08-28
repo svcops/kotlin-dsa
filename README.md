@@ -1,6 +1,7 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
+
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
   * [动态规划](#动态规划)
   * [排序](#排序)
@@ -11,9 +12,11 @@
     * [堆](#堆)
     * [搜索树](#搜索树)
     * [压缩](#压缩)
+    * [树套树](#树套树)
   * [图](#图)
     * [定义](#定义)
     * [算法](#算法)
+
 <!-- TOC -->
 
 ## 动态规划
@@ -94,6 +97,16 @@ AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红
 ### 压缩
 
 [Huffman Tree](src/main/kotlin/io/intellij/dsa/tree/huffman/HuffmanImpl.kt)
+
+### 树套树
+
+[Trie](src/main/kotlin/io/intellij/dsa/tree/trie/TrieImpl.kt)
+
+Trie 是一种典型的树套树的实现
+
+- 对于本身的结构，是树形展开
+- 对于同一层的查询，需要用的查询树(ps: 利用哈希表也可以)
+  - 如果哈希表数据量很庞大，最终的性能约束还是落在了查询上
 
 ## 图
 

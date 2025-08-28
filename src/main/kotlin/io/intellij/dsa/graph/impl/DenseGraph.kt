@@ -5,7 +5,6 @@ import io.intellij.dsa.getLogger
 import io.intellij.dsa.graph.Edge
 import io.intellij.dsa.graph.Graph
 import io.intellij.dsa.graph.VertexIndex
-import org.apache.commons.lang3.StringUtils
 
 /**
  * DenseGraph 稠密图，邻接矩阵
@@ -79,7 +78,7 @@ class DenseGraph : Graph {
     }
 
     override fun connect(from: String, to: String, weight: Double) {
-        if (StringUtils.isEmpty(from) || StringUtils.isEmpty(to)) {
+        if (from.isBlank() || to.isBlank()) {
             throw IllegalArgumentException("Vertex names cannot be empty")
         }
         if (from == to) {
