@@ -11,6 +11,7 @@
     * [并查集](#并查集)
     * [堆](#堆)
     * [搜索树](#搜索树)
+    * [跳表](#跳表)
     * [压缩](#压缩)
     * [树套树](#树套树)
   * [图](#图)
@@ -70,6 +71,8 @@ private fun heapify() {
 
 ### 搜索树
 
+> 查询时间复杂度为 $\mathrm{O} \log\mathrm{(N)}$
+
 [二分搜索树定义](src/main/kotlin/io/intellij/dsa/tree/bst/BST.kt)
 
 - [节点定义](src/main/kotlin/io/intellij/dsa/tree/bst/BSTNode.kt)
@@ -93,6 +96,18 @@ private fun heapify() {
 左偏红黑树：左偏红黑树是红黑树的一种变体，它的对红边（点）的位置做了一定限制，使得其插入与删除操作可以与 2-3 树构成一一对应
 
 AA树：AA 树是红黑树的一种变体，与红黑树不同，AA 树上的红色节点只能作为右子节点。这导致 AA 树模拟了 2-3 树
+
+### 跳表
+
+> 概率数据结构
+
+时间复杂度基于产生的索引层数的概率 `p`: $\mathrm{O}(\log_{\frac{1}{p}}\mathrm{(N)})$
+
+跳表是对有序链表的改进
+
+[跳表的定义](src/main/kotlin/io/intellij/dsa/skiplist/SkipList.kt)
+
+[跳表的实现](src/main/kotlin/io/intellij/dsa/skiplist/SkipListImpl.kt)
 
 ### 压缩
 
