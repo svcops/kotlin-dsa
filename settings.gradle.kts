@@ -10,3 +10,6 @@ pluginManagement {
 // }
 
 rootProject.name = "kotlin-dsa"
+
+include("basic")
+include("project")
