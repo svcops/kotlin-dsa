@@ -1,7 +1,6 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
-
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
   * [动态规划](#动态规划)
   * [排序](#排序)
@@ -17,7 +16,12 @@
   * [图](#图)
     * [定义](#定义)
     * [算法](#算法)
-
+  * [工程算法常用实践](#工程算法常用实践)
+    * [缓存与存储](#缓存与存储)
+    * [并发与任务调度](#并发与任务调度)
+    * [网络与分布式](#网络与分布式)
+    * [搜索与推荐](#搜索与推荐)
+    * [其他高频实践](#其他高频实践)
 <!-- TOC -->
 
 ## 动态规划
@@ -176,3 +180,63 @@ Trie 是一种典型的树套树的实现
 - 思路：局部最优更新到全局最优
 
 [环分析](src/main/kotlin/io/intellij/dsa/graph/compute/CycleAnalyzer.kt)
+
+## 工程算法常用实践
+
+### 缓存与存储
+
+LRU / LFU / ARC —— 缓存淘汰策略（操作系统缓存、Redis、Guava Cache）。
+
+一致性哈希 —— 分布式缓存、分库分表、负载均衡。
+
+布隆过滤器（Bloom Filter） —— 大数据场景下的快速存在性判断（爬虫 URL 去重、黑名单过滤）。
+
+跳表（SkipList） —— Redis Sorted Set 的底层数据结构。
+
+B+ 树 / B 树 —— 数据库和文件系统的索引结构。
+
+LSM 树 —— LevelDB、RocksDB、HBase 等存储引擎。
+
+### 并发与任务调度
+
+令牌桶 / 漏桶算法 —— 限流、流量控制（API 网关）。
+
+优先队列 / 小顶堆 —— 定时任务调度、任务优先级处理。
+
+工作窃取算法（Work Stealing） —— 并行计算任务调度（Java ForkJoinPool、Go 调度器）。
+
+CAS / 自旋锁 —— 高并发环境下的乐观锁。
+
+协程调度算法 —— Golang、Kotlin 协程的任务切换策略。
+
+### 网络与分布式
+
+Raft / Paxos —— 分布式一致性协议（Etcd、ZooKeeper）。
+
+Gossip 协议 —— 分布式系统中节点状态传播（Cassandra、Consul）。
+
+背压（Backpressure）算法 —— 消息队列、流式处理防止堆积（Kafka、RxJava）。
+
+Hystrix 熔断算法 —— 服务治理中的快速失败与恢复。
+
+### 搜索与推荐
+
+倒排索引（Inverted Index） —— 搜索引擎核心（Elasticsearch、Lucene）。
+
+PageRank —— 网页排名与推荐系统。
+
+LSH（局部敏感哈希）/ MinHash —— 相似度搜索、去重。
+
+余弦相似度 / Jaccard 相似度 —— 推荐系统、文本去重。
+
+### 其他高频实践
+
+环形缓冲区（Ring Buffer） —— 高性能队列（Disruptor、Netty）。
+
+一致性快照（Snapshotting） —— 数据库和分布式系统恢复点。
+
+动态规划（Diff、编辑距离） —— Git diff、文本比较。
+
+LRU-K / LFU-K —— 数据库缓存管理（Oracle、Postgres）。
+
+Skip Merge / Compaction —— LSM 树存储引擎中的合并算法。
