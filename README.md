@@ -1,8 +1,9 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
-
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
+  * [论文](#论文)
+    * [清华大学sssp优化](#清华大学sssp优化)
   * [动态规划](#动态规划)
   * [排序](#排序)
     * [O(n^2)](#on2)
@@ -23,8 +24,13 @@
     * [网络与分布式](#网络与分布式)
     * [搜索与推荐](#搜索与推荐)
     * [其他高频实践](#其他高频实践)
-
 <!-- TOC -->
+
+## 论文
+
+### 清华大学sssp优化
+
+[2504.17033v2.pdf](.assets/2504.17033v2.pdf)
 
 ## 动态规划
 
