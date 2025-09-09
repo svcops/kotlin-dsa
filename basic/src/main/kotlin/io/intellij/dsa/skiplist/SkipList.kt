@@ -38,6 +38,12 @@ interface SkipList<K : Comparable<K>, V> {
     fun remove(key: K): V?
 
     /**
+     * 清空跳表
+     */
+    fun clear()
+
+
+    /**
      * 打印跳表
      */
     fun print()

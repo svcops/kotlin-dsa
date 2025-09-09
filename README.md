@@ -1,6 +1,7 @@
 # Data Structures and Algorithms in Kotlin
 
 <!-- TOC -->
+
 * [Data Structures and Algorithms in Kotlin](#data-structures-and-algorithms-in-kotlin)
   * [动态规划](#动态规划)
   * [排序](#排序)
@@ -22,6 +23,7 @@
     * [网络与分布式](#网络与分布式)
     * [搜索与推荐](#搜索与推荐)
     * [其他高频实践](#其他高频实践)
+
 <!-- TOC -->
 
 ## 动态规划
@@ -185,7 +187,12 @@ Trie 是一种典型的树套树的实现
 
 ### 缓存与存储
 
-LRU / LFU / ARC —— 缓存淘汰策略（操作系统缓存、Redis、Guava Cache）。
+LRU / LFU / ARC —— 缓存淘汰策略（操作系统缓存、Redis、Guava Cache）
+
+LRU(Least Recently Used)
+
+- [LRU的定义](project/src/main/kotlin/io/intellij/project/dsa/cache/lru/Lru.kt)
+- [LRU的实现](project/src/main/kotlin/io/intellij/project/dsa/cache/lru/LruImpl.kt)
 
 一致性哈希 —— 分布式缓存、分库分表、负载均衡。
 

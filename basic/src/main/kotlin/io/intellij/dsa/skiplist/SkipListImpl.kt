@@ -205,6 +205,15 @@ class SkipListImpl<K : Comparable<K>, V>(
         return target.value
     }
 
+    override fun clear() {
+        this.skipListLevel = MIN_LEVEL
+        this.nodeCount = 0
+
+        for (i in 0 until head.getNodeLevel()) {
+            head.setRight(i, null)
+        }
+    }
+
     private inner class SkipListNode<K : Comparable<K>, V>(
         val key: K?,   // 不可变，唯一标识
         var value: V?, // 可变，更新值

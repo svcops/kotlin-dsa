@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
+    id("java-library")
 }
 
 group = "io.intellij.kotlin.ads"
@@ -22,11 +23,11 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.commons.lang3)
-    implementation(libs.commons.collections4)
-    implementation(libs.slf4j.api)
-    implementation(libs.logback.classic)
-    implementation(libs.logback.core)
+    api(libs.commons.lang3)
+    api(libs.commons.collections4)
+    api(libs.slf4j.api)
+    api(libs.logback.classic)
+    api(libs.logback.core)
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }

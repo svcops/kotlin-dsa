@@ -5,3 +5,6 @@ package io.intellij.project.dsa.cache.lfu
  *
  * @author tech@intellij.io
  */
+interface Lfu<K, V> {
+
+}

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-group = "io.intellij.kotlin.ads"
+group = "io.intellij.kotlin.project.ads"
 version = "1.0.0-SNAPSHOT"
 
 val projectJdkVersion = libs.versions.java.get().toInt()
@@ -22,11 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.commons.lang3)
-    implementation(libs.commons.collections4)
-    implementation(libs.slf4j.api)
-    implementation(libs.logback.classic)
-    implementation(libs.logback.core)
+    implementation(project(":basic"))
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
