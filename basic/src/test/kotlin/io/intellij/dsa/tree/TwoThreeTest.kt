@@ -1,8 +1,7 @@
 package io.intellij.dsa.tree
 
-import io.intellij.dsa.tree.twothree.TTTree
-import io.intellij.dsa.tree.twothree.TTTreeImpl
-import io.intellij.dsa.tree.twothree.TwoThreeTree
+import io.intellij.dsa.buildTTTree
+import io.intellij.dsa.tree.twothree.other.TwoThreeTree
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
 
@@ -15,7 +14,7 @@ import kotlin.test.Test
 class TwoThreeTest {
 
     @Test
-    fun `test two three tree insert`() {
+    fun `test two three tree inorder`() {
         TwoThreeTree().apply {
             // 10, 20, 5, 15, 30, 25, 35
             insert(10)
@@ -29,19 +28,12 @@ class TwoThreeTest {
     }
 
     @Test
-    fun `test two tree tree add`() {
-        val tree: TTTree<Int, String> = TTTreeImpl<Int, String>().apply {
-            this.add(1, "one")
-            this.add(2, "two")
-            this.add(3, "three")
-            this.add(4, "four")
-            this.add(5, "five")
-            this.add(6, "six")
-            this.add(7, "seven")
-            this.add(8, "eight")
-            this.add(9, "nine")
+    fun `test two tree tree insert`() {
+        val tree = buildTTTree<Int, String>().apply {
+            for (i in 1..9) {
+                this.insert(i, "value-$i")
+            }
         }
-
         Assertions.assertEquals(9, tree.size())
 
         println("Inorder Traversal:")

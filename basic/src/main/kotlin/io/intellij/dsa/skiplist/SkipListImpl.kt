@@ -46,6 +46,10 @@ class SkipListImpl<K : Comparable<K>, V>(
      */
     override fun level(): Int = this.skipListLevel
 
+    override fun contains(key: K): Boolean {
+        return get(key) != null
+    }
+
     /**
      * 查找的逻辑 跳表查找的核心就是 从上到下、每层尽量向右，最后在底层确认
      *
@@ -308,4 +312,5 @@ class SkipListImpl<K : Comparable<K>, V>(
             println(sb.toString().trimEnd())
         }
     }
+
 }

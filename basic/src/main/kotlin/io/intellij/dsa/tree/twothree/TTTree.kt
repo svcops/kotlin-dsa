@@ -1,30 +1,21 @@
 package io.intellij.dsa.tree.twothree
 
+import io.intellij.dsa.DataStructurePrintable
+import io.intellij.dsa.KVOperation
+
 /**
- * TTTree
+ * TTTree 二三树，自下而上的平衡
  *
  * @author tech@intellij.io
  * @since 2025-06-03
  */
-interface TTTree<K : Comparable<K>, V> {
-
-    fun isEmpty(): Boolean = size() == 0
+interface TTTree<K : Comparable<K>, V> : KVOperation<K, V>, DataStructurePrintable {
 
     fun getRoot(): TTNode<K, V>?
 
-    fun size(): Int
-
-    fun contains(key: K): Boolean
-
-    fun get(key: K): V?
-
-    fun add(key: K, value: V)
-
-    fun remove(key: K): V?
-
+    /**
+     * 中序遍历
+     */
     fun inorder(action: (K, V) -> Unit)
 
-    fun clear()
-
-    fun printTree()
 }

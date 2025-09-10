@@ -95,7 +95,6 @@ class StringTrie : Trie {
         root.terminal = false
         contentCount = 0
     }
-
 }
 
 class TrieUtils {

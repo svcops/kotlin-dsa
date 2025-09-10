@@ -1,4 +1,4 @@
-package io.intellij.dsa.tree.twothree
+package io.intellij.dsa.tree.twothree.other
 
 /**
  * TwoThreeTree
@@ -7,7 +7,7 @@ package io.intellij.dsa.tree.twothree
  * @since 2025-06-02
  */
 class TwoThreeTree {
-    inner class Node {
+    private inner class Node {
         val keys = mutableListOf<Int>()
         val children = mutableListOf<Node>()
         var parent: Node? = null

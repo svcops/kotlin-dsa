@@ -49,7 +49,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
         }
     }
 
-    override fun add(key: K, value: V) {
+    override fun insert(key: K, value: V) {
         if (this.root == null) {
             this.root = TTNode<K, V>().apply { add(key, value) }
             this.count++
@@ -61,7 +61,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
             count++
             // 如果当前节点的键值对数量超过2，进行分裂
             if (this.keys.size > 2) {
-                splitRebalance(this)
+                splitAndRebalance(this)
             }
         }
 
@@ -115,7 +115,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
     }
 
     // 一定是3节点分裂
-    private fun splitRebalance(node: TTNode<K, V>) {
+    private fun splitAndRebalance(node: TTNode<K, V>) {
         log.debug("split and rebalance node: [${node.keys.map { it -> it.key }.joinToString(" ")}]")
         /*
         case1:
@@ -179,7 +179,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
 
             curParent.add(midKV.key, midKV.value)
             if (curParent.keys.size > 2) {
-                splitRebalance(curParent)
+                splitAndRebalance(curParent)
             }
         }
 
@@ -232,7 +232,7 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
         this.count = 0
     }
 
-    override fun printTree() {
+    override fun print() {
         if (this.root == null) return println("Empty Tree")
 
         println("2-3 Tree Structure:")
@@ -257,4 +257,5 @@ class TTTreeImpl<K : Comparable<K>, V> : TTTree<K, V> {
             }
         }
     }
+
 }

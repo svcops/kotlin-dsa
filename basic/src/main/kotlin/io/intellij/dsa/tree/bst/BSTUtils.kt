@@ -20,13 +20,13 @@ private fun <K : Comparable<K>, V> isBSTHelper(node: BSTNode<K, V>?, minVal: K?,
             isBSTHelper(node.getRight(), key, maxVal)
 }
 
-internal fun <K : Comparable<K>, V> get(node: BSTNode<K, V>?, k: K): BSTNode<K, V>? {
+internal fun <K : Comparable<K>, V> getNode(node: BSTNode<K, V>?, k: K): BSTNode<K, V>? {
     return if (node == null) {
         null
     } else {
         when {
-            k < node.getKey() -> get(node.getLeft(), k)
-            k > node.getKey() -> get(node.getRight(), k)
+            k < node.getKey() -> getNode(node.getLeft(), k)
+            k > node.getKey() -> getNode(node.getRight(), k)
             else -> node // Found the node
         }
     }

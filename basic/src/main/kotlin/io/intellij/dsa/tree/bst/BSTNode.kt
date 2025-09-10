@@ -8,6 +8,9 @@ package io.intellij.dsa.tree.bst
  */
 interface BSTNode<K : Comparable<K>, V> {
 
+    /**
+     * 节点高度，定义为节点到根节点的高度
+     */
     fun getHeight(): Int
 
     fun setHeight(height: Int): BSTNode<K, V>

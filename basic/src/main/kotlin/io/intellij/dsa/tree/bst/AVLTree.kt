@@ -16,8 +16,8 @@ class AVLTree<K : Comparable<K>, V> : BST<K, V> {
 
     override fun getRoot(): BSTNode<K, V>? = this.root
 
-    override fun add(k: K, v: V) {
-        root = add(root, k, v)
+    override fun insert(key: K, value: V) {
+        root = add(root, key, value)
     }
 
     private fun add(node: BSTNode<K, V>?, k: K, v: V): BSTNode<K, V> {
@@ -42,7 +42,7 @@ class AVLTree<K : Comparable<K>, V> : BST<K, V> {
     }
 
     override fun remove(k: K): V? {
-        return get(k)?.let { node ->
+        return getNode(k)?.let { node ->
             val rtV = node.getValue()
             root = remove(root, k, rtV)
             rtV
@@ -83,6 +83,11 @@ class AVLTree<K : Comparable<K>, V> : BST<K, V> {
             }
         }
         return node.updateHeight().rebalance(Action.REMOVE)
+    }
+
+    override fun clear() {
+        this.root = null
+        this.count = 0
     }
 
 }

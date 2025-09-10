@@ -1,5 +1,6 @@
 package io.intellij.dsa.skiplist
 
+import io.intellij.dsa.buildSkipList
 import org.junit.jupiter.api.Test
 
 /**

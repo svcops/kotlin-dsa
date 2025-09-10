@@ -22,16 +22,16 @@ class LruImpl<K, V>(
 
     override fun size() = this.size
 
-    override fun containsKey(key: K): Boolean {
+    override fun contains(key: K): Boolean {
         return map.containsKey(key)
     }
 
     override fun get(key: K): V? {
-        return if (!containsKey(key)) {
+        return if (!contains(key)) {
             null
         } else {
             map[key]!!.let {
-                updateFirst(it.takeOut())
+                moveToFirst(it.takeOut())
                 it.value!!
             }
         }
@@ -40,7 +40,7 @@ class LruImpl<K, V>(
     /**
      * 将查询到的节点更新到双向链表的最前面
      */
-    private fun updateFirst(node: LruNode) {
+    private fun moveToFirst(node: LruNode) {
         // 只有一个节点，或者当前节点的前一个节点已经哨兵head
         if (this.maxSize == 1 || node.prev == head) {
             return
@@ -53,7 +53,7 @@ class LruImpl<K, V>(
         head.next = node
     }
 
-    override fun put(key: K, value: V) {
+    override fun insert(key: K, value: V) {
         val tryGet = get(key)
         // 缓存存在
         if (tryGet != null) {
@@ -64,14 +64,14 @@ class LruImpl<K, V>(
         // 缓存已满
         if (this.size >= this.maxSize) {
             removeLast()
-            updateFirst(LruNode(key, value))
+            moveToFirst(LruNode(key, value))
             return
         }
 
         // 缓存未满
         map[key] = LruNode(key, value)
         this.size++
-        updateFirst(map[key]!!)
+        moveToFirst(map[key]!!)
     }
 
     /**
@@ -85,21 +85,25 @@ class LruImpl<K, V>(
         last.takeOut()
     }
 
+    /**
+     * 删除链表中某个节点
+     */
     override fun remove(key: K): V? {
-        return if (!containsKey(key)) {
+        return if (!contains(key)) {
             null
         } else {
             this.size--
             map.remove(key)!!.let {
-                it.prev!!.next = it.next
-                it.next!!.prev = it.prev
-                it.next = null
-                it.prev = null
-                it.value
+                val rtValue = it.value
+                it.takeOut()
+                rtValue
             }
         }
     }
 
+    /**
+     * 清空链表
+     */
     override fun clear() {
         this.size = 0
         this.map.clear()
@@ -107,6 +111,9 @@ class LruImpl<K, V>(
         this.tail.prev = head
     }
 
+    /**
+     * 打印链表
+     */
     override fun print() {
         val sb = StringBuilder()
         sb.append("[HEAD] ")

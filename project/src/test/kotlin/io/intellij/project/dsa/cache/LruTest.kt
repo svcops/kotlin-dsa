@@ -1,6 +1,6 @@
 package io.intellij.project.dsa.cache
 
-import io.intellij.project.dsa.cache.lru.buildLruCache
+import io.intellij.project.dsa.buildLRU
 import org.junit.jupiter.api.Test
 
 /**
@@ -13,9 +13,9 @@ class LruTest {
     @Test
     fun `test lru`() {
         val maxSize = 20
-        val lru = buildLruCache<Int, String>(maxSize)
+        val lru = buildLRU<Int, String>(maxSize)
         for (i in 1..maxSize * 2) {
-            lru.put(i, "value-$i")
+            lru.insert(i, "value-$i")
             lru.print()
         }
         println("lru size = ${lru.size()}")

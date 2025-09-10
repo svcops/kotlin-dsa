@@ -1,22 +1,8 @@
 package io.intellij.dsa.tree.bst
 
-interface BST<K : Comparable<K>, V> {
+import io.intellij.dsa.KVOperation
 
-    /**
-     * Checks if the binary search tree (BST) is empty.
-     *
-     * @return true if the BST contains no elements, false otherwise
-     */
-    fun isEmpty(): Boolean {
-        return this.size() == 0
-    }
-
-    /**
-     * Returns the number of elements currently stored in the binary search tree (BST).
-     *
-     * @return the total count of elements in the tree
-     */
-    fun size(): Int
+interface BST<K : Comparable<K>, V> : KVOperation<K, V> {
 
     /**
      * Retrieves the root node of the binary search tree (BST).
@@ -25,32 +11,23 @@ interface BST<K : Comparable<K>, V> {
      */
     fun getRoot(): BSTNode<K, V>?
 
+
     /**
-     * Determines whether the binary search tree (BST) contains a specific key.
+     * Determines whether the binary search tree (BST) contains the specified key.
      *
      * @param key the key to search for in the binary search tree
      * @return true if the key exists in the tree, false otherwise
      */
-    fun contains(key: K): Boolean {
-        return this.get(key) != null
+    override fun contains(key: K): Boolean {
+        return getNode(key) != null
     }
 
     /**
-     * Adds a key-value pair to the binary search tree (BST). If the key already exists,
-     * updates the value associated with the key.
-     *
-     * @param k the key to insert or update in the BST
-     * @param v the value to associate with the specified key
+     * Retrieves the value associated with the specified key in the binary search tree (BST).
      */
-    fun add(k: K, v: V)
-
-    /**
-     * Removes a key-value pair from the binary search tree (BST) if the specified key exists.
-     *
-     * @param k the key to remove from the BST
-     * @return the value associated with the removed key, or null if the key is not found in the BST
-     */
-    fun remove(k: K): V?
+    override fun get(key: K): V? {
+        return getNode(key)?.getValue()
+    }
 
     /**
      * Retrieves the node associated with the specified key in the binary search tree (BST).
@@ -58,8 +35,8 @@ interface BST<K : Comparable<K>, V> {
      * @param key the key to search for in the binary search tree
      * @return the node corresponding to the given key, or null if the key is not found
      */
-    fun get(key: K): BSTNode<K, V>? {
-        return get(getRoot(), key)
+    fun getNode(key: K): BSTNode<K, V>? {
+        return getNode(getRoot(), key)
     }
 
     /**
@@ -123,7 +100,6 @@ interface BST<K : Comparable<K>, V> {
         getRight()?.postorder(action)
         action.apply { this }
     }
-
 
     fun <K : Comparable<K>, V> BSTNode<K, V>.bfs(action: (BSTNode<K, V>) -> Unit) {
         val queue = ArrayDeque<BSTNode<K, V>>()

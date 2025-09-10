@@ -14,8 +14,15 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
 
     override fun getRoot(): BSTNode<K, V>? = this.root
 
-    override fun add(k: K, v: V) {
-        root = add(root, k, v)
+    /**
+     * Adds a key-value pair to the binary search tree (BST). If the key already exists,
+     * updates the value associated with the key.
+     *
+     * @param key the key to insert or update in the BST
+     * @param value the value to associate with the specified key
+     */
+    override fun insert(key: K, value: V) {
+        root = add(root, key, value)
     }
 
     private fun add(node: BSTNode<K, V>?, k: K, v: V): BSTNode<K, V> {
@@ -37,7 +44,7 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
     }
 
     override fun remove(k: K): V? {
-        return get(k)?.let { node ->
+        return getNode(k)?.let { node ->
             val rtV = node.getValue()
             root = remove(root, k)
             rtV
@@ -85,6 +92,10 @@ class BasicBST<K : Comparable<K>, V> : BST<K, V> {
         return node.updateHeight()
     }
 
+    override fun clear() {
+        this.root = null
+        this.count = 0
+    }
 }
 
 internal class BasicBSTNode<K : Comparable<K>, V> : BSTNode<K, V> {

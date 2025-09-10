@@ -1,8 +1,9 @@
 package io.intellij.dsa.tree
 
+import io.intellij.dsa.buildAVLTree
+import io.intellij.dsa.buildBasicBST
 import io.intellij.dsa.tree.bst.AVLTree
 import io.intellij.dsa.tree.bst.BST
-import io.intellij.dsa.tree.bst.BasicBST
 import io.intellij.dsa.tree.bst.printBST
 import org.junit.jupiter.api.Assertions
 import kotlin.test.Test
@@ -17,9 +18,9 @@ class BstTest {
 
     @Test
     fun `test basic bst`() {
-        val basic: BST<Int, Int> = BasicBST()
+        val basic = buildBasicBST<Int, Int>()
         for (i in 1..7) {
-            basic.add(i, i * 10)
+            basic.insert(i, i * 10)
         }
         Assertions.assertEquals(7, basic.size())
 
@@ -31,9 +32,9 @@ class BstTest {
 
     @Test
     fun `test avl tree`() {
-        val avl: BST<Int, Int> = AVLTree()
+        val avl = buildAVLTree<Int, Int>()
         for (i in 1..7) {
-            avl.add(i, i * 10)
+            avl.insert(i, i * 10)
             printBST(avl.getRoot())
             println("----------")
         }
@@ -49,7 +50,7 @@ class BstTest {
     fun `test avl ll`() {
         val avl: BST<Int, Int> = AVLTree()
         arrayOf(3, 2, 1).forEach {
-            avl.add(it, it * 10)
+            avl.insert(it, it * 10)
             printBST(avl.getRoot())
             println("----------")
         }
@@ -59,7 +60,7 @@ class BstTest {
     fun `test avl lr`() {
         val avl: BST<Int, Int> = AVLTree()
         arrayOf(3, 1, 2).forEach {
-            avl.add(it, it * 10)
+            avl.insert(it, it * 10)
             printBST(avl.getRoot())
             println("----------")
         }
@@ -69,7 +70,7 @@ class BstTest {
     fun `test avl rr`() {
         val avl: BST<Int, Int> = AVLTree()
         arrayOf(1, 2, 3).forEach {
-            avl.add(it, it * 10)
+            avl.insert(it, it * 10)
             printBST(avl.getRoot())
             println("----------")
         }
@@ -79,7 +80,7 @@ class BstTest {
     fun `test avl rl`() {
         val avl: BST<Int, Int> = AVLTree()
         arrayOf(1, 3, 2).forEach {
-            avl.add(it, it * 10)
+            avl.insert(it, it * 10)
             printBST(avl.getRoot())
             println("----------")
         }
