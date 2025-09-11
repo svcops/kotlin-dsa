@@ -204,6 +204,9 @@ LRU(Least Recently Used)
 
 布隆过滤器（Bloom Filter） —— 大数据场景下的快速存在性判断（爬虫 URL 去重、黑名单过滤）。
 
+- [布隆过滤器的定义](project/src/main/kotlin/io/intellij/project/dsa/cache/bloom/BloomFilter.kt)
+- [布隆过滤器的实现](project/src/main/kotlin/io/intellij/project/dsa/cache/bloom/BloomFilterImpl.kt)
+
 跳表（SkipList） —— Redis Sorted Set 的底层数据结构。
 
 B+ 树 / B 树 —— 数据库和文件系统的索引结构。

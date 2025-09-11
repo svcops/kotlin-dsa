@@ -14,22 +14,22 @@ abstract class GraphCompute {
     }
 
     fun checkEmpty(): GraphCompute {
-        if (graph.isEmpty()) {
-            throw IllegalArgumentException("Graph is empty")
+        require(!graph.isEmpty()) {
+            "Graph is empty"
         }
         return this
     }
 
     fun checkDirected(expectedDirected: Boolean): GraphCompute {
-        if (graph.isDirected() != expectedDirected) {
-            throw IllegalArgumentException("Graph is not ${if (expectedDirected) "directed" else "undirected"}")
+        require(graph.isDirected() == expectedDirected) {
+            "Graph is not ${if (expectedDirected) "directed" else "undirected"}"
         }
         return this
     }
 
     fun checkWeighted(expectedWeighted: Boolean): GraphCompute {
-        if (graph.isWeighted() != expectedWeighted) {
-            throw IllegalArgumentException("Graph is not ${if (expectedWeighted) "weighted" else "unweighted"}")
+        require(graph.isWeighted() == expectedWeighted) {
+            "Graph is not ${if (expectedWeighted) "weighted" else "unweighted"}"
         }
         return this
     }
