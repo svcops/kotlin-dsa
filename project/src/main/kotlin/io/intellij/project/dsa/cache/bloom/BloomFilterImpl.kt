@@ -17,11 +17,19 @@ class BloomFilterImpl(bitCount: Int) : BloomFilter {
         }
     }
 
-    override fun mustNotContains(value: String): Boolean {
-        hashUtils.indices(value).forEach {
-            if (!bitSet.get(it)) return true
+    /**
+     * 是否包含，通过多次hash计算出的值
+     */
+    override fun contains(value: String): Boolean {
+        val iterator = hashUtils.indicesIterator(value)
+        while (iterator.hasNext()) {
+            iterator.next().let {
+                if (!bitSet.get(it)) {
+                    return false
+                }
+            }
         }
-        return false
+        return true
     }
-}
 
+}

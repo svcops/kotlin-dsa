@@ -126,6 +126,8 @@ class CycleAnalyzer(graph: Graph) : GraphCompute(graph) {
 
         private val cycleZip = mutableSetOf<String>()
 
+        internal fun hasCycle() = cycles.isNotEmpty()
+
         internal fun addCycle(cycle: List<Vertex>) {
             if (!directed) {
                 val zip = cycle.map { it.name }

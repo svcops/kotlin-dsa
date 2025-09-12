@@ -12,8 +12,8 @@ internal fun <K : Comparable<K>, V> BSTNode<K, V>.getBalanceFactor(): Int =
     getNodeHeight(this.getLeft()) - getNodeHeight(this.getRight())
 
 internal fun Int.valueIn(min: Int, max: Int): Boolean {
-    if (min > max) {
-        throw IllegalArgumentException("min should be less than or equal to max")
+    require(max >= min) {
+        "max should be greater than or equal to min"
     }
     return this in min..max
 }

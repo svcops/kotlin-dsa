@@ -12,6 +12,11 @@ class SkipListImpl<K : Comparable<K>, V>(
     val p: Double = DEFAULT_P
 ) : SkipList<K, V> {
 
+    init {
+        require(maxLevel > 0) { "maxLevel must be greater than 0" }
+        require(p > 0.0 && p <= 1.0) { "p must be in (0, 1]" }
+    }
+
     companion object {
         private const val MIN_LEVEL = 1
     }

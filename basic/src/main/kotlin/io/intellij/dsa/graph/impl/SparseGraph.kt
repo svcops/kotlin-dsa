@@ -68,8 +68,8 @@ class SparseGraph : Graph {
     }
 
     override fun connect(from: String, to: String, weight: Double) {
-        if (from.isBlank() || to.isBlank()) {
-            throw IllegalArgumentException("Vertex names cannot be empty")
+        require(from.isNotBlank() && to.isNotBlank()) {
+            "Vertex names cannot be empty"
         }
 
         if (from == to) {

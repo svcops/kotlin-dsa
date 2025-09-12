@@ -23,7 +23,6 @@ class HashUtils(private val seed: Int, private val size: Int) {
      */
     fun indices(value: String, k: Int = 4): IntArray {
         require(k > 0) { "k must be > 0" }
-
         // 基础哈希（保持稳定且成本较低）
         val h1 = mix1(value)
         val h2 = mix2(value)
@@ -42,7 +41,43 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return result
     }
 
-    // --------------- 四个与原始风格相近的哈希函数（对字符串逐字符搅拌） ---------------
+    /**
+     * 惰性计算版本：返回一个迭代器，每次 next() 只计算一个索引。
+     * - 仅在创建时计算 h1~h4，避免重复工作
+     * - 可用 hasNext() 控制计算次数
+     */
+    fun indicesIterator(value: String, k: Int = 4): IndexIterator {
+        require(k > 0) { "k must be > 0" }
+        val h1 = mix1(value)
+        val h2 = mix2(value)
+        val h3 = mix3(value)
+        val h4 = mix4(value)
+        return IndexIterator(h1, h2, h3, h4, k)
+    }
+
+    /**
+     * 内部惰性生成器：每次 next() 计算一个索引
+     */
+    inner class IndexIterator(
+        private val h1: Int,
+        private val h2: Int,
+        private val h3: Int,
+        private val h4: Int,
+        private val k: Int
+    ) {
+        private var i: Int = 0
+        private val seedXor: Int = seed * 0x9E3779B9.toInt()
+
+        fun hasNext(): Boolean = i < k
+
+        fun next(): Int {
+            if (!hasNext()) throw NoSuchElementException("No more indices")
+            val ii = i + 1
+            val combined = h1 + ii * h2 + ii * ii * h3 + (h4 xor seedXor)
+            i++
+            return indexFrom(combined)
+        }
+    }
 
     fun hashG1(value: String): Int {
         var hash = 0
@@ -53,6 +88,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
+    // ... existing code ...
     fun hashG2(value: String): Int {
         var hash = 7397
         for (c in value) {
@@ -62,6 +98,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
+    // ... existing code ...
     fun hashG3(value: String): Int {
         var hash = 0
         for (c in value) {
@@ -71,6 +108,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return indexFrom(hash)
     }
 
+    // ... existing code ...
     fun hashG4(value: String): Int {
         // 近似 Java 的 (h ^ (h >>> 16)) 的扰动
         var h = value.hashCode()
@@ -79,8 +117,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         val mixed = (seed * max(1, size - 1)) and h
         return indexFrom(mixed)
     }
-
-    // --------------- 内部基础混合函数：用于 indices 的双重/多重散列组合 ---------------
+    // ... existing code ...
 
     private fun mix1(value: String): Int {
         var hash = 5381 // 常见起始值
@@ -90,6 +127,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash)
     }
 
+    // ... existing code ...
     private fun mix2(value: String): Int {
         var hash = 0
         for (c in value) {
@@ -99,6 +137,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash xor (seed * 0x85EBCA6B.toInt()))
     }
 
+    // ... existing code ...
     private fun mix3(value: String): Int {
         var hash = 216613626 // FNV-like 起始值（缩短版）
         for (c in value) {
@@ -107,6 +146,7 @@ class HashUtils(private val seed: Int, private val size: Int) {
         return toNonNegative(hash)
     }
 
+    // ... existing code ...
     private fun mix4(value: String): Int {
         // 使用 JDK 的 hashCode 并做一次轻量搅拌
         var h = value.hashCode()
@@ -117,14 +157,14 @@ class HashUtils(private val seed: Int, private val size: Int) {
         h = h xor (h ushr 16)
         return toNonNegative(h)
     }
-
-    // --------------- 辅助方法 ---------------
+    // ... existing code ...
 
     private fun indexFrom(hash: Int): Int = floorMod(hash, size)
 
-    // 避免 Int.MIN_VALUE 的 abs 溢出问题
+    // ... existing code ...
     private fun toNonNegative(x: Int): Int = x and Int.MAX_VALUE
 
+    // ... existing code ...
     private fun floorMod(x: Int, m: Int): Int {
         // 与 Java Math.floorMod 行为一致
         var r = x % m

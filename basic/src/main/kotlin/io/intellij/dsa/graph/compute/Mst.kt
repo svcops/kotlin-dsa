@@ -18,8 +18,8 @@ class Mst(graph: Graph) : GraphCompute(graph) {
 
     init {
         checkEmpty().checkDirected(false).checkWeighted(true)
-        if (Components(graph).compute().componentCount > 1) {
-            throw IllegalArgumentException("Graph is not connected, cannot compute MST")
+        require(Components(graph).compute().componentCount == 1) {
+            "The graph must be connected."
         }
     }
 

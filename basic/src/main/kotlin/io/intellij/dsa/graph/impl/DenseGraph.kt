@@ -78,9 +78,10 @@ class DenseGraph : Graph {
     }
 
     override fun connect(from: String, to: String, weight: Double) {
-        if (from.isBlank() || to.isBlank()) {
-            throw IllegalArgumentException("Vertex names cannot be empty")
+        require(from.isNotBlank() && to.isNotBlank()) {
+            "Vertex names cannot be empty"
         }
+
         if (from == to) {
             return
         }
@@ -91,9 +92,8 @@ class DenseGraph : Graph {
         this.connect(fromV.id, toV.id, weight, directed = this.directed)
     }
 
-    private fun expand(size: Int) {
-        if (size > adjacencyMatrix.size) {
-            val newSize = size
+    private fun expand(newSize: Int) {
+        if (newSize > adjacencyMatrix.size) {
             val newMatrix = Array(newSize) { Array<Double?>(newSize) { null } }
             adjacencyMatrix.forEachIndexed { i, row ->
                 System.arraycopy(row, 0, newMatrix[i], 0, row.size)

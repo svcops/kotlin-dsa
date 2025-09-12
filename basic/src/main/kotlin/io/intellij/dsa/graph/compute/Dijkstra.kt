@@ -1,6 +1,10 @@
 package io.intellij.dsa.graph.compute
 
-import io.intellij.dsa.graph.*
+import io.intellij.dsa.graph.DEFAULT_UNWEIGHTED_VALUE
+import io.intellij.dsa.graph.Edge
+import io.intellij.dsa.graph.Graph
+import io.intellij.dsa.graph.GraphCompute
+import io.intellij.dsa.graph.Vertex
 import java.util.*
 
 /**
@@ -236,7 +240,7 @@ class Dijkstra(graph: Graph) : GraphCompute(graph) {
         /**
          * 打印所有最短路径
          */
-        fun printAllPaths() {
+        fun printAllRoutes() {
             println("=== Dijkstra Shortest Paths from [${source.name}] ===")
             graph.getVertexes()
                 .filter { it.name != source.name }

@@ -16,10 +16,9 @@ class TopoSort(graph: Graph) : GraphCompute(graph) {
     init {
         // 必须是有向无环图
         checkEmpty().checkDirected(true)
-
         val cycleAnalyzer = CycleAnalyzer(graph)
-        if (cycleAnalyzer.findCycles().cycles.isNotEmpty()) {
-            throw IllegalArgumentException("Graph has cycle")
+        require(!cycleAnalyzer.findCycles(true).hasCycle()) {
+            "Graph contains cycles, cannot compute topological sort"
         }
     }
 

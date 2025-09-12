@@ -38,9 +38,7 @@ class IndexedUnionFind<T> : UnionFind<T> {
 
     override fun add(value: T): Boolean {
         val index = indexFunc(value)
-        if (index < 0) {
-            throw IllegalArgumentException("Index must be non-negative")
-        }
+        require(index >= 0) { "Index must be non-negative" }
         expand(index + 1)
         if (data[index] == null) {
             // 如果当前索引位置没有元素，则添加新元素
